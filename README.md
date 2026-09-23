@@ -1,11 +1,20 @@
 # DreamDexed Controller
 
-A browser-based getting-started guide and controller for **DreamDexed** — the
-Raspberry Pi port of **MiniDexed**, a faithful software emulation of the
-legendary Yamaha DX7.
+A browser-based controller for **DreamDexed** — the Raspberry Pi port of
+**MiniDexed**, a faithful software emulation of the legendary Yamaha DX7.
+It gives a headless Raspberry Pi 4 a proper user interface: select
+performances, adjust volume, step through banks and programs, and forward
+incoming MIDI notes to the Pi — all from a single HTML file.
 
 No extra software. No bridge. No server. The browser talks directly to the
 Pi over the Web MIDI API.
+
+A companion **starter page** (`index.html`) walks first-time users through
+setup, parts and the first steps.
+
+---
+
+<img width="768" height="735" alt="DreamDexed-Controller" src="https://github.com/user-attachments/assets/86c24072-a8bf-49c9-a69a-965ffeb6bc5c" />
 
 ---
 
@@ -13,14 +22,14 @@ Pi over the Web MIDI API.
 
 | File | Purpose |
 |------|---------|
-| `index.html` | Starter page — setup guide, parts list, downloads |
 | `controller.html` | The Controller — performance selection and MIDI forwarding |
+| `index.html` | Starter page — setup guide, parts list, downloads |
 | `minidexed.ini` | Pre-configured configuration file for the SD card |
 | `doto-latin-900-normal.woff2` | Local font, used by both pages |
 
 ---
 
-## How it works
+## How the Controller works
 
 DreamDexed runs headless on a Raspberry Pi 4. In **USB Gadget Mode** the Pi
 appears on the PC as a standard MIDI device. The Controller sends MIDI
@@ -28,9 +37,13 @@ Program Change and Note messages to it, and forwards incoming MIDI data
 from a keyboard or DAW. Everything happens in the browser.
 
 - **MIDI Out** – the Pi itself. Used for Program Change, Bank Select, Volume and the PGM / BANK navigation keys (default channel 10).
-- **MIDI In** – your keyboard or DAW. Incoming notes are forwarded 1:1 to the Pi, on their original channel (typically 1).
+- **MIDI In** – your keyboard or DAW. Incoming notes are forwarded 1:1 to the Pi, on their original channel (typically 1). Active Sensing (`0xFE`) is filtered out.
 - **PERFLIST.PDF** – opens the Soundplantage Performance List alongside the Controller.
 - **MANUAL** – opens the in-app user manual.
+
+The two MIDI channels are kept separate on purpose: notes arrive on channel
+1, program changes go out on channel 10 (`PerformanceSelectChannel=10`). This
+avoids "ghost notes" — note messages being misinterpreted as program changes.
 
 ---
 
