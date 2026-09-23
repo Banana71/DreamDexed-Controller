@@ -1,16 +1,19 @@
 # DreamDexed Controller
 
-A browser-based controller for **DreamDexed / miniDexed**, 
-a faithful software emulation of the legendary Yamaha DX7.
-It gives a headless Raspberry Pi 4 a proper user interface: select
-performances, adjust volume, step through banks and programs, and forward
-incoming MIDI notes to the Pi — all from a single HTML file.
+A browser-based controller for **DreamDexed / miniDexed**, a faithful software
+emulation of the legendary Yamaha DX7.
 
-No extra software. No bridge. No server. The browser talks directly to the
-Pi over the Web MIDI API.
+The Controller lets you select performances, adjust volume, navigate banks
+and programs, and forward incoming MIDI notes to the Pi — all from a single
+HTML file. No additional hardware is required on the Raspberry Pi. This makes
+it easy to try out DreamDexed or miniDexed with nothing more than a Raspberry
+Pi 4, and to explore what the instrument can do.
 
-A companion **starter page** (`index.html`) walks first-time users through
-setup, parts and the first steps.
+No additional software. No bridge. No server. The browser communicates
+directly with the Pi via the Web MIDI API.
+
+A companion start page (`index.html`) guides first-time users through setup,
+parts and the first steps.
 
 ---
 
@@ -36,9 +39,13 @@ appears on the PC as a standard MIDI device. The Controller sends MIDI
 Program Change and Note messages to it, and forwards incoming MIDI data
 from a keyboard or DAW. Everything happens in the browser.
 
-- **MIDI Out** – the Pi itself. Used for Program Change, Bank Select, Volume and the PGM / BANK navigation keys (default channel 10).
-- **MIDI In** – your keyboard or DAW. Incoming notes are forwarded 1:1 to the Pi, on their original channel (typically 1). Active Sensing (`0xFE`) is filtered out.
-- **PERFLIST.PDF** – opens the Soundplantage Performance List alongside the Controller.
+- **MIDI Out** – the Pi itself. Used for Program Change, Bank Select, Volume
+  and the PGM / BANK navigation keys (default channel 10).
+- **MIDI In** – your keyboard or DAW. Incoming notes are forwarded 1:1 to
+  the Pi, on their original channel (typically 1). Active Sensing (`0xFE`)
+  is filtered out.
+- **PERFLIST.PDF** – opens the Soundplantage Performance List alongside the
+  Controller.
 - **MANUAL** – opens the in-app user manual.
 
 The two MIDI channels are kept separate on purpose: notes arrive on channel
@@ -52,12 +59,30 @@ avoids "ghost notes" — note messages being misinterpreted as program changes.
 - Raspberry Pi 4 (1 GB is enough)
 - USB-C to USB-A cable
 - SD card, 8 GB or larger
-- PC with Chrome, Edge or Brave
-- MIDI keyboard or controller (sends on channel 1)
+- PC or laptop running **Windows, macOS or Linux**
+- **A Chromium-based browser** (Chrome, Edge or Brave)
+- **MIDI keyboard or controller** connected to the PC via USB (must be able
+  to send on **MIDI channel 1** — all performances are configured to listen
+  on channel 1)
 - Headphones or speakers
 
 A DAC, OLED display or rotary encoder are optional — see section 08 of the
 starter page.
+
+### Browser compatibility
+
+The Controller relies on the **Web MIDI API**, which is not available in all
+browsers. The current support:
+
+| Browser | Support |
+|---------|---------|
+| Chrome / Edge / Brave / Opera (desktop) | **Full support** |
+| Firefox (desktop) | Supported from version 108, requires a Site Permission Add-On |
+| Safari (macOS / iOS) | **Not supported** |
+| Mobile browsers (iOS / Android) | Very limited or no support |
+
+For the most reliable experience, use **Chrome, Edge or Brave** on a desktop
+operating system. These browsers provide full Web MIDI support out of the box.
 
 > **Warning:** In USB Gadget Mode the Pi is powered through the same USB-C
 > cable that carries the data. Do **not** connect a separate power supply.
@@ -73,21 +98,12 @@ starter page.
 4. Insert the SD card into the Pi and connect it to your PC via USB-C.
 5. Open `index.html` (or the hosted URL), then click **Go to Controller**.
 6. In the Controller, select the Pi under **MIDI OUT** and press **CONNECT**.
-7. Select your keyboard under **MIDI IN**.
-8. Enter a performance number and press **ENTER** — then play.
+7. Connect your **MIDI keyboard** to the PC and switch it on. Select it under
+   **MIDI IN** in the Controller.
+8. Enter a performance number and press **ENTER** — then play a note on your
+   keyboard.
 
 Full instructions, troubleshooting and next steps are on the starter page.
-
----
-
-## Deploying to GitHub Pages
-
-1. Push all files to the `main` branch.
-2. Go to **Settings → Pages**.
-3. Set *Source* to `Deploy from a branch`, *Branch* to `main` / `root`.
-4. Save. The site will be available at `https://<username>.github.io/<repo>/`.
-
-Rename `start.html` to `index.html` so it becomes the default landing page.
 
 ---
 
