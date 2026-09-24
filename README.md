@@ -44,8 +44,9 @@ from a keyboard or DAW. Everything happens in the browser.
 - **MIDI In** – your keyboard or DAW. Incoming notes are forwarded 1:1 to
   the Pi, on their original channel (typically 1). Active Sensing (`0xFE`)
   is filtered out.
-- **PERFLIST.PDF** – opens the Soundplantage Performance List alongside the
-  Controller.
+- **PERFLIST.PDF** – opens the modified Performance List that ships with this
+repository. Bank 1 is a curated selection of favourites chosen for this
+project; Banks 2 and up are the original Soundplantage banks.
 - **MANUAL** – opens the in-app user manual.
 
 The two MIDI channels are kept separate on purpose: notes arrive on channel
