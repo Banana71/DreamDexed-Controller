@@ -1,4 +1,4 @@
-# DreamDexed Controller
+# DreamDexed Controller for Raspberry Pi 4
 
 A browser-based controller for **DreamDexed / miniDexed**, a faithful software
 emulation of the legendary Yamaha DX7.
