@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DreamDexed Install Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@900&display=swap" rel="stylesheet">
+<style>
+  /* Local Doto file. If present, it is preferred.
+     Otherwise, the Google-Fonts link in <head> kicks in. */
+  @font-face {
+    font-family: 'Doto';
+    src: url('doto-latin-900-normal.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --body-dark: #2b1d15;
+    --body-mid: #3a2820;
+    --panel: #1a1210;
+    --panel-edge: #0a0806;
+    --lcd-bg: #0a1a0d;
+    --lcd-text: #3cc84a;
+    --lcd-dim: #2a5a2d;
+    --key-light: #d0c8b8;
+    --key-light-top: #e8e0d0;
+    --key-dark: #4a4038;
+    --key-dark-top: #5a5048;
+    --label: #c8b8a0;
+    --accent-red: #c83030;
+    --accent-red-soft: #e04040;
+    --muted: #8a7a68;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #14100c;
+    font-family: 'Courier New', 'Consolas', monospace;
+    color: var(--label);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 32px 16px;
+    line-height: 1.6;
+  }
+
+  .page {
+    background: linear-gradient(180deg, var(--body-mid), var(--body-dark));
+    border: 3px solid var(--panel-edge);
+    border-radius: 6px;
+    padding: 28px;
+    box-shadow:
+      0 0 0 1px #000,
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      0 12px 40px rgba(0,0,0,0.8);
+    width: 1180px;
+    max-width: 100%;
+  }
+
+  /* ---------- Brand header ---------- */
+  .brand {
+    position: relative;
+    padding: 0 4px 16px 4px;
+    border-bottom: 1px solid #000;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .brand .logo-sm {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 6px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .brand .logo-lg {
+    font-family: 'Doto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 36px;
+    letter-spacing: 4px;
+    color: #e8e0d0;
+    text-shadow: 0 1px 0 #000, 0 0 16px rgba(77,255,94,0.15);
+    line-height: 1;
+  }
+
+  .brand .sub {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #5a4a3a;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  .brand .top-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .brand-btn {
+    background: linear-gradient(180deg, var(--key-dark-top), var(--key-dark));
+    color: #e8e0d0;
+    border: 1px solid #000;
+    border-radius: 3px;
+    padding: 6px 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.15),
+      0 2px 0 #000,
+      0 3px 6px rgba(0,0,0,0.6);
+    transition: transform 0.05s, box-shadow 0.05s;
+  }
+  .brand-btn:hover { background: linear-gradient(180deg, #5a5048, #4a4038); }
+  .brand-btn:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 0 0 #000;
+  }
+
+  /* ---------- Mini warning banner (top of page) ---------- */
+  .warning-mini {
+    background: #2a0c0c;
+    border: 2px solid var(--accent-red);
+    border-radius: 4px;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #ff9090;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .warning-mini strong { color: #ff6060; }
+
+  /* ---------- Intro box (green) ---------- */
+  .intro {
+    background: var(--lcd-bg);
+    border: 2px solid var(--lcd-dim);
+    border-left: 6px solid var(--lcd-text);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin-bottom: 22px;
+    box-shadow:
+      inset 0 0 22px rgba(60,200,74,0.08),
+      0 0 14px rgba(60,200,74,0.18);
+  }
+  .intro .intro-title {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--lcd-text);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    text-shadow: 0 0 6px rgba(77,255,94,0.5);
+  }
+  .intro p {
+    color: #b8d8b8;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .intro p:last-child { margin-bottom: 0; }
+  .intro strong { color: #d8f0d8; }
+  .intro a {
+    color: var(--lcd-text);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--lcd-dim);
+  }
+  .intro a:hover { color: #70ff90; border-bottom-color: var(--lcd-text); }
+  .intro code {
+    font-family: 'Courier New', monospace;
+    background: #050a05;
+    color: var(--lcd-text);
+    padding: 1px 6px;
+    border-radius: 2px;
+    border: 1px solid #000;
+    font-size: 12px;
+  }
+
+  /* ---------- Tiles ---------- */
+  .tiles-intro {
+    margin-bottom: 12px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .tile {
+    background: var(--panel);
+    border: 2px solid var(--panel-edge);
+    border-radius: 4px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+    min-height: 130px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  }
+  .tile.clickable { cursor: pointer; }
+  .tile.clickable:hover {
+    border-color: var(--lcd-dim);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      0 0 14px rgba(77,255,94,0.18);
+    transform: translateY(-2px);
+  }
+  .tile.clickable:active {
+    transform: translateY(0);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  .tile-icon {
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .tile-title {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #e8e0d0;
+    text-transform: uppercase;
+  }
+  .tile-desc {
+    font-size: 12px;
+    color: var(--label);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .tile-cta {
+    padding-top: 8px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--lcd-text);
+    font-weight: bold;
+    border-top: 1px solid #2a1e18;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tile-cta::after { content: '→'; font-size: 14px; line-height: 1; }
+  .tile.clickable:hover .tile-cta {
+    color: #70ff90;
+    text-shadow: 0 0 6px rgba(77,255,94,0.6);
+  }
+  .tile.static .tile-cta { color: var(--muted); }
+  .tile.static .tile-cta::after { content: ''; }
+
+  /* ---------- Zones ---------- */
+  .zone { margin-bottom: 36px; }
+
+  .zone-title {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: 4px;
+    color: #e8e0d0;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--lcd-dim);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .zone-title .zone-num {
+    font-family: 'Doto', 'Courier New', monospace;
+    font-weight: 900;
+    font-size: 26px;
+    color: var(--lcd-text);
+    text-shadow: 0 0 8px rgba(77,255,94,0.5);
+    line-height: 1;
+  }
+  .zone-sub {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  /* Zone variant: troubleshooting (red) */
+  .zone.zone-warn .zone-title { border-bottom-color: var(--accent-red); }
+  .zone.zone-warn .zone-title .zone-num {
+    color: var(--accent-red);
+    text-shadow: 0 0 8px rgba(200,48,48,0.5);
+  }
+
+  /* Zone variant: appendix (muted) */
+  .zone.zone-appendix .zone-title {
+    border-bottom-color: #3a2c22;
+    color: var(--muted);
+  }
+  .zone.zone-appendix .zone-title .zone-num {
+    color: var(--muted);
+    text-shadow: none;
+  }
+
+  /* ---------- Sections inside zones ---------- */
+  .section {
+    background: var(--panel);
+    border: 2px solid var(--panel-edge);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .section h3 {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--lcd-text);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #2a1e18;
+  }
+  .section p {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .section p:last-child { margin-bottom: 0; }
+  .section ul, .section ol { margin: 8px 0 10px 22px; font-size: 13px; }
+  .section li { margin-bottom: 5px; }
+  .section a {
+    color: var(--lcd-text);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--lcd-dim);
+  }
+  .section a:hover { color: #70ff90; border-bottom-color: var(--lcd-text); }
+  .section code {
+    font-family: 'Courier New', monospace;
+    background: #0a0806;
+    color: var(--lcd-text);
+    padding: 1px 6px;
+    border-radius: 2px;
+    border: 1px solid #000;
+    font-size: 12px;
+  }
+
+  /* ---------- Full warning box ---------- */
+  .warning {
+    background: #2a0c0c;
+    border: 2px solid var(--accent-red);
+    border-left: 6px solid var(--accent-red);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    box-shadow:
+      inset 0 0 20px rgba(200,48,48,0.10),
+      0 0 12px rgba(200,48,48,0.25);
+  }
+  .warning .warning-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: #ff7070;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .warning .warning-title::before { content: '⚠'; font-size: 20px; line-height: 1; }
+  .warning p { color: #e8c8c8; font-size: 13px; margin-bottom: 8px; }
+  .warning p:last-child { margin-bottom: 0; }
+  .warning strong { color: #ff9090; }
+  .warning ul { margin: 8px 0 8px 22px; color: #e8c8c8; font-size: 13px; }
+  .warning li { margin-bottom: 4px; }
+
+  /* ---------- Parts table ---------- */
+  table.parts {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  table.parts th, table.parts td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 1px solid #2a1e18;
+    vertical-align: top;
+  }
+  table.parts th {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    border-bottom: 1px solid #000;
+  }
+  table.parts tr:last-child td { border-bottom: none; }
+  table.parts .qty {
+    color: var(--lcd-text);
+    font-weight: bold;
+    width: 50px;
+    text-align: center;
+  }
+  table.parts .req {
+    width: 40px;
+    text-align: center;
+    font-weight: bold;
+    color: var(--lcd-text);
+  }
+  table.parts .opt {
+    color: var(--muted);
+  }
+  table.parts .name { color: #e8e0d0; font-weight: bold; width: 26%; }
+
+  /* ---------- Steps ---------- */
+  .step {
+    display: flex;
+    gap: 18px;
+    background: var(--panel);
+    border: 2px solid var(--panel-edge);
+    border-left: 4px solid var(--lcd-text);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .step-num {
+    flex: 0 0 auto;
+    font-family: 'Doto', 'Courier New', monospace;
+    font-weight: 900;
+    font-size: 40px;
+    color: var(--lcd-text);
+    text-shadow: 0 0 10px rgba(77,255,94,0.55);
+    line-height: 1;
+    min-width: 48px;
+    padding-top: 2px;
+  }
+  .step-content { flex: 1; min-width: 0; }
+  .step-title {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #e8e0d0;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .step-content p {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .step-content p:last-child { margin-bottom: 0; }
+  .step-content ol, .step-content ul {
+    margin: 8px 0 8px 20px;
+    font-size: 13px;
+  }
+  .step-content li { margin-bottom: 5px; }
+  .step-content a {
+    color: var(--lcd-text);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--lcd-dim);
+  }
+  .step-content a:hover { color: #70ff90; border-bottom-color: var(--lcd-text); }
+  .step-content code {
+    font-family: 'Courier New', monospace;
+    background: #0a0806;
+    color: var(--lcd-text);
+    padding: 1px 6px;
+    border-radius: 2px;
+    border: 1px solid #000;
+    font-size: 12px;
+  }
+
+  .step-check {
+    margin-top: 12px;
+    padding: 8px 12px 8px 14px;
+    background: #0a1a0d;
+    border-left: 3px solid var(--lcd-text);
+    border-radius: 3px;
+    font-size: 12px;
+    color: #b8d8b8;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .step-check::before {
+    content: '✓';
+    color: var(--lcd-text);
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+  .step-check strong { color: #d8f0d8; }
+
+  /* Download button */
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(180deg, var(--key-light-top), var(--key-light));
+    color: #1a1210;
+    border: 1px solid #000;
+    border-radius: 3px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 11px;
+    text-decoration: none;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.5),
+      0 2px 0 #000,
+      0 3px 6px rgba(0,0,0,0.6);
+    transition: transform 0.05s, box-shadow 0.05s;
+    margin-top: 6px;
+  }
+  .download-btn:hover { background: linear-gradient(180deg, #f0e8d8, var(--key-light-top)); }
+  .download-btn:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 0 #000;
+  }
+  .download-btn.dark {
+    background: linear-gradient(180deg, var(--key-dark-top), var(--key-dark));
+    color: #e8e0d0;
+  }
+  .download-btn.dark:hover { background: linear-gradient(180deg, #5a5048, #4a4038); }
+
+  /* ---------- Done box ---------- */
+  .done-box {
+    background: var(--lcd-bg);
+    border: 3px solid var(--lcd-text);
+    border-radius: 6px;
+    padding: 26px 30px;
+    margin: 26px 0 8px 0;
+    text-align: center;
+    box-shadow: 0 0 24px rgba(60,200,74,0.25);
+  }
+  .done-box .done-title {
+    font-family: 'Doto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    letter-spacing: 4px;
+    color: var(--lcd-text);
+    text-shadow: 0 0 12px rgba(77,255,94,0.7);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+  .done-box p {
+    font-size: 13px;
+    color: #b8d8b8;
+    margin-bottom: 8px;
+  }
+  .done-box p:last-child { margin-bottom: 0; }
+  .done-box strong { color: #d8f0d8; }
+
+  /* ---------- Troubleshooting ---------- */
+  .ts-firstaid {
+    background: #1a1208;
+    border: 2px solid #5a4a2a;
+    border-left: 4px solid #c8a030;
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #e0c8a0;
+  }
+  .ts-firstaid strong {
+    color: #ffd070;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 12px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .ts-item {
+    background: var(--panel);
+    border: 2px solid var(--panel-edge);
+    border-left: 4px solid var(--accent-red);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+  .ts-item h4 {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #ff9090;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .ts-item ul {
+    margin: 6px 0 0 20px;
+    font-size: 13px;
+    color: var(--label);
+  }
+  .ts-item li { margin-bottom: 5px; }
+  .ts-item li:last-child { margin-bottom: 0; }
+  .ts-item code {
+    font-family: 'Courier New', monospace;
+    background: #0a0806;
+    color: var(--lcd-text);
+    padding: 1px 6px;
+    border-radius: 2px;
+    border: 1px solid #000;
+    font-size: 12px;
+  }
+
+  /* ---------- Appendix: accordions ---------- */
+  details.acc {
+    background: var(--panel);
+    border: 2px solid var(--panel-edge);
+    border-radius: 4px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  details.acc > summary {
+    padding: 14px 18px;
+    cursor: pointer;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #e8e0d0;
+    text-transform: uppercase;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    transition: background 0.1s;
+  }
+  details.acc > summary::-webkit-details-marker { display: none; }
+  details.acc > summary::after {
+    content: '+';
+    font-size: 20px;
+    color: var(--lcd-text);
+    font-weight: 900;
+    line-height: 1;
+  }
+  details.acc[open] > summary::after { content: '−'; }
+  details.acc > summary:hover { background: rgba(255,255,255,0.02); }
+  details.acc[open] > summary {
+    border-bottom: 1px solid #2a1e18;
+  }
+  .acc-body {
+    padding: 16px 22px 22px 22px;
+  }
+  .acc-body p {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .acc-body p:last-child { margin-bottom: 0; }
+  .acc-body ul, .acc-body ol { margin: 8px 0 10px 22px; font-size: 13px; }
+  .acc-body li { margin-bottom: 5px; }
+  .acc-body a {
+    color: var(--lcd-text);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--lcd-dim);
+  }
+  .acc-body a:hover { color: #70ff90; border-bottom-color: var(--lcd-text); }
+  .acc-body code {
+    font-family: 'Courier New', monospace;
+    background: #0a0806;
+    color: var(--lcd-text);
+    padding: 1px 6px;
+    border-radius: 2px;
+    border: 1px solid #000;
+    font-size: 12px;
+  }
+  .acc-body h5 {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--lcd-text);
+    text-transform: uppercase;
+    margin: 14px 0 8px 0;
+  }
+  .acc-body h5:first-child { margin-top: 0; }
+
+  pre.code {
+    background: var(--lcd-bg);
+    border: 2px solid #050a05;
+    border-radius: 3px;
+    padding: 12px 16px;
+    margin: 8px 0 12px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--lcd-text);
+    text-shadow: 0 0 4px rgba(77,255,94,0.4);
+    overflow-x: auto;
+    box-shadow:
+      inset 0 0 16px rgba(0,255,0,0.06),
+      0 0 6px rgba(0,255,0,0.10);
+  }
+  pre.code .comment { color: var(--lcd-dim); text-shadow: none; }
+  pre.code .key     { color: #90ffb0; }
+  pre.code .val     { color: #e8e0d0; text-shadow: 0 0 4px rgba(255,255,255,0.2); }
+
+  /* ---------- CTA + Footer ---------- */
+  .cta {
+    text-align: center;
+    padding: 26px 24px;
+    background: var(--panel);
+    border: 2px solid var(--panel-edge);
+    border-radius: 4px;
+    margin-bottom: 18px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .cta .cta-text {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .cta .btn-big {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(180deg, #e04040, var(--accent-red));
+    color: #fff;
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 16px 36px;
+    cursor: pointer;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 14px;
+    text-decoration: none;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.4),
+      0 3px 0 #000,
+      0 4px 12px rgba(200,48,48,0.4);
+    transition: transform 0.05s, box-shadow 0.05s;
+  }
+  .cta .btn-big:hover { background: linear-gradient(180deg, #f05050, #d83838); }
+  .cta .btn-big:active {
+    transform: translateY(3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.3),
+      0 0 0 #000,
+      0 1px 2px rgba(0,0,0,0.6);
+  }
+
+  .footer {
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px solid #000;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #5a4a3a;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1.8;
+  }
+  .footer a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px dotted #5a4a3a;
+  }
+  .footer a:hover { color: var(--lcd-text); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px) {
+    .tiles { grid-template-columns: 1fr; }
+    .brand .logo-lg { font-size: 26px; letter-spacing: 2px; }
+    .step { flex-direction: column; gap: 8px; }
+    .step-num { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Brand -->
+  <div class="brand">
+    <div class="top-actions">
+      <a class="brand-btn" href="index.html">← Controller</a>
+    </div>
+    <div class="logo-sm">miniDexed / DreamDexed</div>
+    <div class="logo-lg">Install Guide</div>
+    <div class="sub">From zero to the first note · by SOUNDPLANTAGE.COM</div>
+  </div>
+
+  <!-- MINI WARNING (short version, top of page) -->
+  <div class="warning-mini">
+    ⚠ <strong>USB-C only, and never an extra power supply.</strong>
+    Details in Zone 1.
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <div class="intro-title">What this is for</div>
+    <p>
+      The <strong>DreamDexed Controller</strong> is the simplest way to try
+      out <strong>miniDexed / DreamDexed</strong> without any extra hardware –
+      no rotary encoder, no OLED display, no DAC HAT. Everything is done
+      from a single browser tab on your PC.
+    </p>
+    <p>
+      It lets you listen to the bundled Soundplantage performances right away:
+      browse banks and programs, jump straight to a numbered performance,
+      adjust the master volume, and forward notes from your MIDI keyboard or
+      DAW to the Pi – all in real time, with no software to install on the
+      Raspberry Pi itself.
+    </p>
+    <p>
+      This <strong>Install Guide</strong> walks you through the one-time setup:
+      downloading DreamDexed, flashing the SD card, replacing
+      <code>minidexed.ini</code>, and connecting the Pi to your PC in USB
+      Gadget Mode. Once that is done, the
+      <a href="index.html">Controller</a>
+      is all you ever need to open.
+    </p>
+  </div>
+
+  <!-- TILES: what awaits you (no numbers) -->
+  <div class="tiles-intro">What awaits you · six steps, one hour, first sound</div>
+  <div class="tiles">
+
+    <div class="tile static">
+      <div class="tile-icon">📖</div>
+      <div class="tile-title">Read this guide</div>
+      <div class="tile-desc">
+        Start with the warning. Then skim Zone 1 – it explains what you need.
+      </div>
+      <div class="tile-cta">Read first</div>
+    </div>
+
+    <a class="tile clickable"
+       href="https://github.com/DreamDexed/DreamDexed/releases/download/continuous/DreamDexed_261_260921-e06ec48.zip">
+      <div class="tile-icon">⬇</div>
+      <div class="tile-title">Download DreamDexed</div>
+      <div class="tile-desc">
+        The ready-to-flash ZIP archive with the current DreamDexed build.
+      </div>
+      <div class="tile-cta">Download</div>
+    </a>
+
+    <a class="tile clickable" href="minidexed.ini" download>
+      <div class="tile-icon">📄</div>
+      <div class="tile-title">Download minidexed.ini</div>
+      <div class="tile-desc">
+        The configuration file with the key parameters already set correctly.
+      </div>
+      <div class="tile-cta">Download</div>
+    </a>
+
+    <div class="tile static">
+      <div class="tile-icon">💾</div>
+      <div class="tile-title">Flash to SD card</div>
+      <div class="tile-desc">
+        Write the ZIP to the SD card and swap in the provided
+        <code>minidexed.ini</code>.
+      </div>
+      <div class="tile-cta">Prepare</div>
+    </div>
+
+    <div class="tile static">
+      <div class="tile-icon">🔌</div>
+      <div class="tile-title">Insert &amp; connect</div>
+      <div class="tile-desc">
+        SD card in, USB-C to your PC. No separate power supply.
+      </div>
+      <div class="tile-cta">Connect</div>
+    </div>
+
+    <a class="tile clickable" href="index.html">
+      <div class="tile-icon">🎹</div>
+      <div class="tile-title">Open the Controller</div>
+      <div class="tile-desc">
+        Select the Pi in <em>MIDI OUT</em>, press <em>CONNECT</em>,
+        play your first performance.
+      </div>
+      <div class="tile-cta">Open</div>
+    </a>
+
+  </div>
+
+  <!-- ================================================================
+       ZONE 1 — BEFORE YOU START
+       ================================================================ -->
+  <div class="zone">
+    <div class="zone-title">
+      <span class="zone-num">1</span>
+      Before you start
+    </div>
+    <div class="zone-sub">What you need · the one important warning · prerequisites</div>
+
+    <!-- Full warning -->
+    <div class="warning">
+      <div class="warning-title">USB Gadget Mode – read this once</div>
+      <p>
+        This project is written for the <strong>Raspberry Pi 4</strong>. In
+        <strong>USB Gadget Mode</strong>, the Pi uses its USB-C port for both
+        <strong>data and power</strong> – the same cable that connects it to
+        your PC.
+      </p>
+      <ul>
+        <li><strong>Do NOT</strong> connect a separate power supply while the Pi is in Gadget Mode.</li>
+        <li>The Pi must be <strong>USB bus powered only</strong> – this is required by the USB specification.</li>
+        <li>Use the <strong>USB-C port</strong> (the one you would normally plug the power supply into).</li>
+        <li><strong>Never</strong> use the blue USB-A ports for Gadget Mode – those are host ports only.</li>
+        <li>If you need the Pi to be powered independently (for example, to add a display later), use a <strong>USB-C Power / Data Splitter</strong>. Do not improvise this.</li>
+      </ul>
+      <p>
+        The MiniDexed Wiki puts it plainly: <em>“When using a Raspberry
+        Pi in USB Gadget mode, do not plug in its usual power supply! It should
+        be USB 'bus powered' only.”</em>
+      </p>
+    </div>
+
+    <!-- What you need -->
+    <div class="section">
+      <h3>What you need</h3>
+      <p>
+        The bare minimum is deliberately short. A DAC, an OLED display, or a
+        rotary encoder are <strong>not</strong> required to get started – they
+        improve the experience later. See the Appendix if you are curious.
+      </p>
+      <table class="parts">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Qty</th>
+            <th>Part</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="req">●</td>
+            <td class="qty">1</td>
+            <td class="name">Raspberry Pi 4</td>
+            <td>The smallest memory variant (1 GB) is more than enough.</td>
+          </tr>
+          <tr>
+            <td class="req">●</td>
+            <td class="qty">1</td>
+            <td class="name">USB-C to USB-A cable</td>
+            <td>Connects the Pi 4 to your PC and powers it in Gadget Mode.</td>
+          </tr>
+          <tr>
+            <td class="req">●</td>
+            <td class="qty">1</td>
+            <td class="name">SD card</td>
+            <td>8 GB or larger, Class 10 recommended.</td>
+          </tr>
+          <tr>
+            <td class="req">●</td>
+            <td class="qty">1</td>
+            <td class="name">PC with browser</td>
+            <td>Chrome, Edge or Brave. The Controller needs the Web MIDI API.</td>
+          </tr>
+          <tr>
+            <td class="req">●</td>
+            <td class="qty">1</td>
+            <td class="name">MIDI keyboard</td>
+            <td>
+              Any USB MIDI keyboard. Must be able to send on
+              <strong>MIDI channel 1</strong>.
+            </td>
+          </tr>
+          <tr>
+            <td class="req">●</td>
+            <td class="qty">1</td>
+            <td class="name">Headphones or speakers</td>
+            <td>
+              For the Pi's 3.5 mm jack. PWM output – see the Appendix for
+              an honest word about sound quality.
+            </td>
+          </tr>
+          <tr>
+            <td class="req opt">○</td>
+            <td class="qty opt">0–1</td>
+            <td class="name opt">MIDI-to-USB adapter</td>
+            <td class="opt">
+              Only needed if your keyboard has a 5-pin DIN output.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       ZONE 2 — PATH TO YOUR FIRST SOUND
+       ================================================================ -->
+  <div class="zone">
+    <div class="zone-title">
+      <span class="zone-num">2</span>
+      The way to your first sound
+    </div>
+    <div class="zone-sub">Eight steps · follow them in order · about one hour</div>
+
+    <!-- Step 1 -->
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">Download DreamDexed</div>
+        <p>
+          You need the current DreamDexed build as a ZIP archive. Save it
+          anywhere on your PC – you will not need it after the next step.
+        </p>
+        <a class="download-btn"
+           href="https://github.com/DreamDexed/DreamDexed/releases/download/continuous/DreamDexed_261_260921-e06ec48.zip">
+          ⬇ Download DreamDexed (build 261)
+        </a>
+        <p style="margin-top:10px;font-size:11px;color:var(--muted);">
+          Snapshot of the continuous release. If the link ever stops working,
+          check the
+          <a href="https://github.com/DreamDexed/DreamDexed/releases">DreamDexed Releases page</a>.
+        </p>
+        <div class="step-check">
+          <div>The ZIP file is on your PC and has a reasonable size (~ hundreds of MB).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">Flash the ZIP to the SD card</div>
+        <p>
+          This turns the SD card into a bootable DreamDexed system.
+        </p>
+        <ol>
+          <li>
+            Install <a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a>
+            or <a href="https://etcher.balena.io/">balenaEtcher</a> on your PC.
+          </li>
+          <li>Insert the SD card into your PC.</li>
+          <li>
+            Choose the downloaded <strong>ZIP file</strong> as the source
+            and your <strong>SD card</strong> as the target. Start the write.
+          </li>
+        </ol>
+        <div class="step-check">
+          <div>The tool reports success and the SD card is ejected or ready to remove.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">Replace minidexed.ini on the SD card</div>
+        <p>
+          The Pi needs to know it should talk to the Controller over MIDI and
+          use channel 10 for program changes. The quickest way: replace the
+          file on the SD card with the one below.
+        </p>
+        <a class="download-btn dark" href="minidexed.ini" download>
+          ⬇ Download minidexed.ini
+        </a>
+        <ol style="margin-top:10px;">
+          <li>Plug the SD card back into your PC (it has a readable first partition).</li>
+          <li>Find the existing <code>minidexed.ini</code> on the card.</li>
+          <li>
+            Replace it with the file you just downloaded – keep the exact
+            same file name.
+          </li>
+        </ol>
+        <p style="font-size:12px;color:var(--muted);">
+          Prefer to keep your own file? The five lines that matter, and what
+          they do, are in <em>Appendix → The minidexed.ini in detail</em>.
+        </p>
+        <div class="step-check">
+          <div>
+            <code>minidexed.ini</code> on the SD card has <strong>today's date</strong>
+            and contains the line <code>USBGadget=1</code>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title">Insert the SD card &amp; connect the Pi</div>
+        <p>
+          The Pi is now ready to boot. The moment you plug it into your PC, it
+          powers up and introduces itself as a MIDI device.
+        </p>
+        <ol>
+          <li>Eject the SD card from your PC and insert it into the Pi.</li>
+          <li>
+            Connect the Pi's <strong>USB-C port</strong> to a USB-A port on
+            your PC using the USB-C to USB-A cable.
+          </li>
+          <li>
+            <strong>Do not</strong> attach any other power supply – the PC
+            provides both power and data.
+          </li>
+        </ol>
+        <div class="step-check">
+          <div>
+            After about 15 seconds the Pi appears on your PC as a MIDI device
+            named <strong>DreamDexed</strong> or <strong>Gadget Serial</strong>.
+            On Windows, look in Device Manager under
+            <em>Sound, video and game controllers</em>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <div class="step-title">Open the Controller and connect</div>
+        <p>
+          This is where you actually drive the Pi. Everything happens in your
+          browser – no software to install.
+        </p>
+        <ol>
+          <li>Open the <a href="index.html">Controller</a>.</li>
+          <li>
+            In the <strong>MIDI OUT</strong> dropdown, select the Pi.
+            The Controller usually detects it automatically because the name
+            contains <code>DreamDexed</code>, <code>miniDexed</code> or
+            <code>Gadget</code>.
+          </li>
+          <li>Press <strong>CONNECT</strong>.</li>
+          <li>
+            Accept the browser's MIDI permission prompt
+            (including <em>SysEx</em>) – otherwise volume control will not work.
+          </li>
+        </ol>
+        <div class="step-check">
+          <div>
+            The blue OLED log inside the Controller shows
+            <strong>“>> connected to …”</strong>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <div class="step-title">Plug in headphones and set the volume</div>
+        <p>
+          The Pi's audio output is the 3.5 mm jack on its board. Set the
+          Controller's volume slider to something comfortable before you
+          play your first note.
+        </p>
+        <ol>
+          <li>Plug headphones or speakers into the Pi's 3.5 mm jack.</li>
+          <li>
+            In the Controller, set the <strong>Volume</strong> slider to
+            about <code>64</code> (the default preset). You can refine it later.
+          </li>
+        </ol>
+        <div class="step-check">
+          <div>
+            The volume slider in the Controller reads a value between 0 and 127,
+            and the OLED log shows a <strong>VOLUME</strong> entry.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 7 -->
+    <div class="step">
+      <div class="step-num">7</div>
+      <div class="step-content">
+        <div class="step-title">Connect your MIDI keyboard</div>
+        <p>
+          MiniDexed only makes sound when notes arrive. The keyboard can be
+          any USB MIDI controller – it just needs to send on
+          <strong>channel 1</strong>.
+        </p>
+        <ol>
+          <li>Plug the keyboard into your PC and switch it on.</li>
+          <li>
+            In the Controller, open the <strong>MIDI IN</strong> dropdown and
+            select your keyboard. Forwarding starts automatically.
+          </li>
+          <li>
+            Set the keyboard's transmit channel to <strong>1</strong>.
+            This is usually a menu entry called <em>MIDI Channel</em> or
+            <em>Transmit Channel</em>.
+          </li>
+        </ol>
+        <div class="step-check">
+          <div>
+            The green activity dot next to the MIDI IN dropdown blinks when
+            you press a key on the keyboard.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 8 -->
+    <div class="step">
+      <div class="step-num">8</div>
+      <div class="step-content">
+        <div class="step-title">Select a performance and play</div>
+        <p>
+          The Pi comes with a curated set of performances. Each has a number
+          between 1 and 128.
+        </p>
+        <ol>
+          <li>
+            On the Controller's numpad, type a number (for example
+            <code>1</code>) and press <strong>ENTER</strong>.
+          </li>
+          <li>
+            Play a note on your keyboard. You should hear the selected
+            performance through the Pi's headphones jack.
+          </li>
+          <li>
+            To browse, use the <strong>PGM + / −</strong> and
+            <strong>BANK + / −</strong> buttons, or open
+            <em>PERFLIST.PDF</em> in the Controller to see which number
+            corresponds to which sound.
+          </li>
+        </ol>
+        <div class="step-check">
+          <div>
+            You hear sound when you play. <strong>That's the whole point
+            of this guide – you're done.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Done -->
+    <div class="done-box">
+      <div class="done-title">You made it</div>
+      <p>
+        From now on, you only need the
+        <a href="index.html" style="color:#70ff90;">Controller</a> –
+        select the Pi, press CONNECT, and play.
+      </p>
+      <p>
+        Everything below this line is reference material.
+        Read it only if you want to dig deeper or expand your setup.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       ZONE 3 — TROUBLESHOOTING
+       ================================================================ -->
+  <div class="zone zone-warn">
+    <div class="zone-title">
+      <span class="zone-num">3</span>
+      If something does not work
+    </div>
+    <div class="zone-sub">Find your symptom below · try the first-aid trick first</div>
+
+    <div class="ts-firstaid">
+      <strong>First aid — try this first</strong>
+      Unplug the Pi from your PC, wait five seconds, plug it back in. Reload
+      the Controller page. In most cases, this alone fixes it – the Pi
+      occasionally needs a clean re-enumeration.
+    </div>
+
+    <div class="ts-item">
+      <h4>I hear no sound when I play the keyboard</h4>
+      <ul>
+        <li>
+          Check the <strong>MIDI IN</strong> dropdown in the Controller.
+          It must show your keyboard, not <code>— off —</code>.
+        </li>
+        <li>
+          Does the green activity dot blink when you press a key? If not, the
+          keyboard is not reaching the browser.
+        </li>
+        <li>
+          Keyboard channel: must be <strong>1</strong>. All performances
+          listen on channel 1.
+        </li>
+        <li>
+          Volume slider in the Controller and <code>MasterVolume</code> in
+          the INI. Default is <code>64</code>.
+        </li>
+        <li>
+          Headphones plugged fully into the Pi's 3.5 mm jack.
+        </li>
+      </ul>
+    </div>
+
+    <div class="ts-item">
+      <h4>My keyboard does not show up in the MIDI IN dropdown</h4>
+      <ul>
+        <li>Reconnect the keyboard, then reload the Controller page.</li>
+        <li>
+          On Windows: check Device Manager under
+          <em>Sound, video and game controllers</em>.
+        </li>
+        <li>
+          Keyboard with 5-pin DIN output? You need a MIDI-to-USB adapter.
+        </li>
+        <li>
+          Some keyboards need a driver or a mode switch (e.g. from
+          <em>MIDI</em> to <em>USB</em>) before they appear.
+        </li>
+      </ul>
+    </div>
+
+    <div class="ts-item">
+      <h4>The Controller does not see the Pi</h4>
+      <ul>
+        <li>Use the Pi's USB-C port, not the blue USB-A ports.</li>
+        <li>
+          Check <code>USBGadget=1</code> in <code>minidexed.ini</code>.
+        </li>
+        <li>Unplug and replug the USB-C cable, then reload the page.</li>
+        <li>
+          On Windows: look in Device Manager for a device named
+          <em>DreamDexed</em> or <em>Gadget Serial</em>.
+        </li>
+      </ul>
+    </div>
+
+    <div class="ts-item">
+      <h4>Program change has no effect</h4>
+      <ul>
+        <li>
+          <code>MIDIRXProgramChange=1</code> in the INI.
+        </li>
+        <li>
+          <code>PerformanceSelectChannel=10</code> in the INI.
+        </li>
+        <li>
+          In the Controller, the <strong>Prog Ch</strong> selector must be
+          <code>10</code>.
+        </li>
+      </ul>
+    </div>
+
+    <div class="ts-item">
+      <h4>The PGM and BANK buttons do nothing</h4>
+      <ul>
+        <li>
+          <code>MIDIButtonCh=10</code> in the INI.
+        </li>
+        <li>
+          <code>MIDIButtonNotes=1</code> in the INI.
+        </li>
+        <li>
+          The button mappings
+          (<code>MIDIButtonPgmUp=6</code>, <code>MIDIButtonPgmDown=7</code>,
+          <code>MIDIButtonBankUp=8</code>, <code>MIDIButtonBankDown=9</code>)
+          must be present.
+        </li>
+      </ul>
+    </div>
+
+    <div class="ts-item">
+      <h4>PERFLIST.PDF shows nothing</h4>
+      <ul>
+        <li>
+          The PDF is loaded from an online mirror. Check your internet
+          connection.
+        </li>
+        <li>Reload the Controller page.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       ZONE 4 — APPENDIX
+       ================================================================ -->
+  <div class="zone zone-appendix">
+    <div class="zone-title">
+      <span class="zone-num">4</span>
+      Appendix
+    </div>
+    <div class="zone-sub">Optional reading · only if you want to know more</div>
+
+    <!-- INI -->
+    <details class="acc">
+      <summary>The minidexed.ini in detail</summary>
+      <div class="acc-body">
+        <p>
+          Five lines are essential for the Controller to work. If you replaced
+          the whole file with the one from step 3, they are already correct.
+          If you prefer to edit your own file, here is what matters:
+        </p>
+
+        <pre class="code"><span class="comment"># USB Gadget Mode: 1 = device mode (Pi appears as a MIDI interface)</span>
+<span class="key">USBGadget</span>=<span class="val">1</span>
+
+<span class="comment"># Enable Program Change reception</span>
+<span class="key">MIDIRXProgramChange</span>=<span class="val">1</span>
+
+<span class="comment"># Program Changes on channel 10 select performances</span>
+<span class="key">PerformanceSelectChannel</span>=<span class="val">10</span>
+
+<span class="comment"># Navigation buttons as Note messages on channel 10</span>
+<span class="key">MIDIButtonCh</span>=<span class="val">10</span>
+<span class="key">MIDIButtonNotes</span>=<span class="val">1</span></pre>
+
+        <h5>What each line does</h5>
+        <ul>
+          <li>
+            <code>USBGadget=1</code> — Enables USB Gadget mode. Without this,
+            your PC cannot see the Pi as a MIDI device.
+          </li>
+          <li>
+            <code>MIDIRXProgramChange=1</code> — Tells MiniDexed to respond to
+            Program Change messages. If set to <code>0</code>, program
+            numbers from the Controller are ignored.
+          </li>
+          <li>
+            <code>PerformanceSelectChannel=10</code> — Program Changes on
+            channel 10 select <em>performances</em> rather than individual
+            voices. This is the channel the Controller sends on by default.
+          </li>
+          <li>
+            <code>MIDIButtonCh=10</code> — Channel on which the Pi listens
+            for navigation button messages.
+          </li>
+          <li>
+            <code>MIDIButtonNotes=1</code> — Interpret the button numbers as
+            MIDI <em>Note</em> numbers (Note-On/Note-Off) rather than Control
+            Change numbers.
+          </li>
+        </ul>
+
+        <h5>Navigation button mapping (default in the file)</h5>
+        <pre class="code"><span class="key">MIDIButtonPgmUp</span>=<span class="val">6</span>         <span class="key">MIDIButtonActionPgmUp</span>=<span class="val">click</span>
+<span class="key">MIDIButtonPgmDown</span>=<span class="val">7</span>       <span class="key">MIDIButtonActionPgmDown</span>=<span class="val">click</span>
+<span class="key">MIDIButtonBankUp</span>=<span class="val">8</span>        <span class="key">MIDIButtonActionBankUp</span>=<span class="val">click</span>
+<span class="key">MIDIButtonBankDown</span>=<span class="val">9</span>      <span class="key">MIDIButtonActionBankDown</span>=<span class="val">click</span></pre>
+
+        <p>
+          Full reference:
+          <a href="https://github.com/probonopd/MiniDexed/wiki/Files#midi-button-navigation">
+            MiniDexed Wiki → MIDI Button Navigation
+          </a>
+        </p>
+      </div>
+    </details>
+
+    <!-- MIDI details -->
+    <details class="acc">
+      <summary>MIDI details — channels, forwarding, SysEx</summary>
+      <div class="acc-body">
+        <h5>Channel assignments</h5>
+        <p>
+          The Controller sends everything it generates on a single channel –
+          the one you select in <strong>Prog Ch</strong>. The default is
+          <code>10</code>, matching <code>PerformanceSelectChannel=10</code>
+          in the INI.
+        </p>
+        <p>
+          Notes forwarded from your keyboard arrive on <em>their</em> channel –
+          usually <code>1</code>. Keeping notes on channel 1 and program
+          changes on channel 10 avoids “ghost notes” – a note being
+          misinterpreted as a program change on the same channel.
+        </p>
+
+        <h5>Forwarding is 1:1</h5>
+        <p>
+          Every incoming MIDI message is passed to the selected MIDI OUT
+          exactly as it arrives, on its original channel. Nothing is rewritten,
+          nothing is filtered – with one exception:
+          <strong>Active Sensing (0xFE)</strong> is discarded. Many older
+          keyboards send it every ~200 ms as a keep-alive; the Pi does not
+          need it.
+        </p>
+
+        <h5>Master Volume SysEx</h5>
+        <p>
+          Volume is sent as a Universal SysEx Master Volume message:
+        </p>
+        <pre class="code">F0 7F 7F 04 01 00 <span class="val">vv</span> F7</pre>
+        <p>
+          The value sits in the <em>MSB</em> (not the LSB). Accepting the
+          browser's MIDI permission prompt including <em>SysEx</em> is
+          therefore required for volume control to work.
+        </p>
+      </div>
+    </details>
+
+    <!-- Sound quality -->
+    <details class="acc">
+      <summary>Sound quality — an honest word</summary>
+      <div class="acc-body">
+        <p>
+          Without an external DAC, the Pi uses its built-in <strong>PWM
+          output</strong> to drive the 3.5 mm jack. On a Raspberry Pi 4 this
+          is a simple digital-to-analog converter built from a filtered
+          square wave – and it sounds like it.
+        </p>
+        <ul>
+          <li>You will hear a constant <strong>hissing</strong> background.</li>
+          <li>
+            Depending on the Pi and the load, there may be a quiet
+            <strong>high-frequency whine</strong>.
+          </li>
+          <li>Dynamic range and stereo separation are modest.</li>
+          <li>
+            It is fine for learning the interface and hearing which performance
+            does what – but not for serious listening or recording.
+          </li>
+        </ul>
+        <p>
+          The good news: a small <strong>PCM5102A DAC HAT</strong> costs under
+          €10, plugs onto the Pi's GPIO header, and gives you a real I²S DAC
+          with clean output. The difference is not subtle – it is the
+          difference between “a toy that makes FM sounds” and “a proper
+          synthesizer”.
+        </p>
+      </div>
+    </details>
+
+    <!-- Next upgrades -->
+    <details class="acc">
+      <summary>Next upgrades and how to go further</summary>
+      <div class="acc-body">
+        <p>
+          Once the basic setup is running, there are several ways to take it
+          further. None are required – they simply add polish.
+        </p>
+        <ul>
+          <li>
+            <strong>Add a DAC.</strong> A PCM5102A HAT on the GPIO header
+            transforms the sound quality. Under €10.
+          </li>
+          <li>
+            <strong>Add an OLED display.</strong> A small SSD1306 (128×64)
+            shows the current performance directly on the Pi. Configured via
+            <code>SSD1306LCDI2CAddress</code> in the INI.
+          </li>
+          <li>
+            <strong>Add a rotary encoder.</strong> A KY-040 lets you step
+            through performances without the PC. Configured via
+            <code>EncoderEnabled</code>, <code>EncoderPinClock</code> and
+            <code>EncoderPinData</code>.
+          </li>
+          <li>
+            <strong>Create your own performances.</strong> DreamDexed uses the
+            standard DX7 SysEx format. Any DX7 patch editor can craft new
+            sounds.
+          </li>
+        </ul>
+        <p>
+          Full reference documentation:
+          <a href="https://github.com/probonopd/MiniDexed/wiki">github.com/probonopd/MiniDexed/wiki</a>.
+          DreamDexed builds:
+          <a href="https://github.com/DreamDexed/DreamDexed">github.com/DreamDexed/DreamDexed</a>.
+        </p>
+      </div>
+    </details>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="cta-text">Ready to play?</div>
+    <a class="btn-big" href="index.html">← BACK TO CONTROLLER</a>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    DreamDexed Install Guide · Browser Edition · SOUNDPLANTAGE.COM<br>
+    Based on MiniDexed by probonopd, licensed under the GPL.<br>
+    Source: <a href="https://github.com/probonopd/MiniDexed">github.com/probonopd/MiniDexed</a>
+    · DreamDexed: <a href="https://github.com/DreamDexed/DreamDexed">github.com/DreamDexed/DreamDexed</a>
+  </div>
+
+</div>
+</body>
+</html>
