@@ -95,9 +95,9 @@ operating system. These browsers provide full Web MIDI support out of the box.
 
 1. Download [`Main.zip`](https://github.com/Banana71/DreamDexed-Controller/archive/refs/heads/main.zip) (the whole project).
 2. Extract it. You get a folder `DreamDexed-Controller-main/` with the
-   Controller, the Install Guide, and a subfolder `SD/` containing the
+   Controller, the Install Guide, and a subfolder `SD-Card/` containing the
    ready-to-copy SD-card files.
-3. Format an SD card as FAT32 and copy the **contents** of `SD/` to the
+3. Format an SD card as FAT32 and copy the **contents** of `SD-Card/` to the
    card's root (not the folder itself).
 4. Insert the SD card into the Pi and connect it to your PC via USB-C.
 5. Open `index.html` (or the hosted URL), then click **Go to Controller**.
