@@ -93,17 +93,20 @@ operating system. These browsers provide full Web MIDI support out of the box.
 
 ## Quick start
 
-1. Download [`DreamDexed_261_naked-mod.zip`](https://github.com/Banana71/DreamDexed-Controller/raw/main/DreamDexed_261_naked-mod.zip) from this repository.
-2. Format an SD card as FAT32, extract the ZIP, and copy its contents to the card.
-3. Insert the SD card into the Pi and connect it to your PC via USB-C.
-4. Open `index.html` (or the hosted URL), then click **Go to Controller**.
-5. In the Controller, select the Pi under **MIDI OUT** and press **CONNECT**.
-6. Connect your **MIDI keyboard** to the PC and switch it on. Select it under
-   **MIDI IN** in the Controller.
+1. Download [`Main.zip`](https://github.com/Banana71/DreamDexed-Controller/archive/refs/heads/main.zip) (the whole project).
+2. Extract it. You get a folder `DreamDexed-Controller-main/` with the
+   Controller, the Install Guide, and a subfolder `SD/` containing the
+   ready-to-copy SD-card files.
+3. Format an SD card as FAT32 and copy the **contents** of `SD/` to the
+   card's root (not the folder itself).
+4. Insert the SD card into the Pi and connect it to your PC via USB-C.
+5. Open `index.html` (or the hosted URL), then click **Go to Controller**.
+6. In the Controller, select the Pi under **MIDI OUT** and press **CONNECT**.
+   Connect your **MIDI keyboard** and select it under **MIDI IN**.
 7. Enter a performance number and press **ENTER** — then play a note on your
    keyboard.
 
-Full instructions, troubleshooting and next steps are on the starter page.
+Full instructions, troubleshooting and next steps are on the install guide page.
 
 ---
 
