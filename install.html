@@ -8,8 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Doto:wght@900&display=swap" rel="stylesheet">
 <style>
-  /* Local Doto file. If present, it is preferred.
-     Otherwise, the Google-Fonts link in <head> kicks in. */
   @font-face {
     font-family: 'Doto';
     src: url('doto-latin-900-normal.woff2') format('woff2');
@@ -32,7 +30,6 @@
     --key-dark-top: #5a5048;
     --label: #c8b8a0;
     --accent-red: #c83030;
-    --accent-red-soft: #e04040;
     --muted: #8a7a68;
   }
 
@@ -63,7 +60,6 @@
     max-width: 100%;
   }
 
-  /* ---------- Brand header ---------- */
   .brand {
     position: relative;
     padding: 0 4px 16px 4px;
@@ -132,7 +128,6 @@
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 0 0 #000;
   }
 
-  /* ---------- Mini warning banner (top of page) ---------- */
   .warning-mini {
     background: #2a0c0c;
     border: 2px solid var(--accent-red);
@@ -147,7 +142,6 @@
   }
   .warning-mini strong { color: #ff6060; }
 
-  /* ---------- Intro box (green) ---------- */
   .intro {
     background: var(--lcd-bg);
     border: 2px solid var(--lcd-dim);
@@ -192,7 +186,6 @@
     font-size: 12px;
   }
 
-  /* ---------- Tiles ---------- */
   .tiles-intro {
     margin-bottom: 12px;
     font-size: 12px;
@@ -275,7 +268,6 @@
   .tile.static .tile-cta { color: var(--muted); }
   .tile.static .tile-cta::after { content: ''; }
 
-  /* ---------- Zones ---------- */
   .zone { margin-bottom: 36px; }
 
   .zone-title {
@@ -307,14 +299,12 @@
     margin-bottom: 20px;
   }
 
-  /* Zone variant: troubleshooting (red) */
   .zone.zone-warn .zone-title { border-bottom-color: var(--accent-red); }
   .zone.zone-warn .zone-title .zone-num {
     color: var(--accent-red);
     text-shadow: 0 0 8px rgba(200,48,48,0.5);
   }
 
-  /* Zone variant: appendix (muted) */
   .zone.zone-appendix .zone-title {
     border-bottom-color: #3a2c22;
     color: var(--muted);
@@ -324,7 +314,6 @@
     text-shadow: none;
   }
 
-  /* ---------- Sections inside zones ---------- */
   .section {
     background: var(--panel);
     border: 2px solid var(--panel-edge);
@@ -367,7 +356,6 @@
     font-size: 12px;
   }
 
-  /* ---------- Full warning box ---------- */
   .warning {
     background: #2a0c0c;
     border: 2px solid var(--accent-red);
@@ -398,7 +386,6 @@
   .warning ul { margin: 8px 0 8px 22px; color: #e8c8c8; font-size: 13px; }
   .warning li { margin-bottom: 4px; }
 
-  /* ---------- Parts table ---------- */
   table.parts {
     width: 100%;
     border-collapse: collapse;
@@ -433,12 +420,9 @@
     font-weight: bold;
     color: var(--lcd-text);
   }
-  table.parts .opt {
-    color: var(--muted);
-  }
+  table.parts .opt { color: var(--muted); }
   table.parts .name { color: #e8e0d0; font-weight: bold; width: 26%; }
 
-  /* ---------- Steps ---------- */
   .step {
     display: flex;
     gap: 18px;
@@ -519,7 +503,6 @@
   }
   .step-check strong { color: #d8f0d8; }
 
-  /* Download button */
   .download-btn {
     display: inline-flex;
     align-items: center;
@@ -554,7 +537,6 @@
   }
   .download-btn.dark:hover { background: linear-gradient(180deg, #5a5048, #4a4038); }
 
-  /* ---------- Done box ---------- */
   .done-box {
     background: var(--lcd-bg);
     border: 3px solid var(--lcd-text);
@@ -583,7 +565,6 @@
   .done-box p:last-child { margin-bottom: 0; }
   .done-box strong { color: #d8f0d8; }
 
-  /* ---------- Troubleshooting ---------- */
   .ts-firstaid {
     background: #1a1208;
     border: 2px solid #5a4a2a;
@@ -638,7 +619,6 @@
     font-size: 12px;
   }
 
-  /* ---------- Appendix: accordions ---------- */
   details.acc {
     background: var(--panel);
     border: 2px solid var(--panel-edge);
@@ -731,7 +711,6 @@
   pre.code .key     { color: #90ffb0; }
   pre.code .val     { color: #e8e0d0; text-shadow: 0 0 4px rgba(255,255,255,0.2); }
 
-  /* ---------- CTA + Footer ---------- */
   .cta {
     text-align: center;
     padding: 26px 24px;
@@ -798,7 +777,6 @@
   }
   .footer a:hover { color: var(--lcd-text); }
 
-  /* Responsive */
   @media (max-width: 900px) {
     .tiles { grid-template-columns: repeat(2, 1fr); }
   }
@@ -823,7 +801,7 @@
     <div class="sub">From zero to the first note · by SOUNDPLANTAGE.COM</div>
   </div>
 
-  <!-- MINI WARNING (short version, top of page) -->
+  <!-- MINI WARNING -->
   <div class="warning-mini">
     ⚠ <strong>USB-C only, and never an extra power supply.</strong>
     Details in Zone 1.
@@ -847,16 +825,14 @@
     </p>
     <p>
       This <strong>Install Guide</strong> walks you through the one-time setup:
-      downloading DreamDexed, flashing the SD card, replacing
-      <code>minidexed.ini</code>, and connecting the Pi to your PC in USB
-      Gadget Mode. Once that is done, the
-      <a href="index.html">Controller</a>
-      is all you ever need to open.
+      downloading the ready-to-use project package, copying the SD-card files
+      to a card, and connecting the Pi to your PC in USB Gadget Mode. Once that
+      is done, the <a href="index.html">Controller</a> is all you ever need to open.
     </p>
   </div>
 
-  <!-- TILES: what awaits you (no numbers) -->
-  <div class="tiles-intro">What awaits you · six steps, one hour, first sound</div>
+  <!-- TILES -->
+  <div class="tiles-intro">What awaits you · from zero to first sound</div>
   <div class="tiles">
 
     <div class="tile static">
@@ -869,30 +845,22 @@
     </div>
 
     <a class="tile clickable"
-       href="https://github.com/DreamDexed/DreamDexed/releases/download/continuous/DreamDexed_261_260921-e06ec48.zip">
+       href="https://github.com/Banana71/DreamDexed-Controller/archive/refs/heads/main.zip">
       <div class="tile-icon">⬇</div>
-      <div class="tile-title">Download DreamDexed</div>
+      <div class="tile-title">Download the project</div>
       <div class="tile-desc">
-        The ready-to-flash ZIP archive with the current DreamDexed build.
-      </div>
-      <div class="tile-cta">Download</div>
-    </a>
-
-    <a class="tile clickable" href="minidexed.ini" download>
-      <div class="tile-icon">📄</div>
-      <div class="tile-title">Download minidexed.ini</div>
-      <div class="tile-desc">
-        The configuration file with the key parameters already set correctly.
+        Main.zip – the whole repository: Controller, Install Guide, and the
+        ready-to-copy SD-card files in a subfolder.
       </div>
       <div class="tile-cta">Download</div>
     </a>
 
     <div class="tile static">
       <div class="tile-icon">💾</div>
-      <div class="tile-title">Flash to SD card</div>
+      <div class="tile-title">Copy SD files to card</div>
       <div class="tile-desc">
-        Write the ZIP to the SD card and swap in the provided
-        <code>minidexed.ini</code>.
+        Extract the ZIP, format an SD card as FAT32, and copy the contents
+        of the <code>SD-Card/</code> folder to the card.
       </div>
       <div class="tile-cta">Prepare</div>
     </div>
@@ -916,6 +884,15 @@
       <div class="tile-cta">Open</div>
     </a>
 
+    <div class="tile static">
+      <div class="tile-icon">🎶</div>
+      <div class="tile-title">Play a performance</div>
+      <div class="tile-desc">
+        Type a number, press ENTER, play your keyboard. Done.
+      </div>
+      <div class="tile-cta">Play</div>
+    </div>
+
   </div>
 
   <!-- ================================================================
@@ -928,7 +905,6 @@
     </div>
     <div class="zone-sub">What you need · the one important warning · prerequisites</div>
 
-    <!-- Full warning -->
     <div class="warning">
       <div class="warning-title">USB Gadget Mode – read this once</div>
       <p>
@@ -951,7 +927,6 @@
       </p>
     </div>
 
-    <!-- What you need -->
     <div class="section">
       <h3>What you need</h3>
       <p>
@@ -985,7 +960,7 @@
             <td class="req">●</td>
             <td class="qty">1</td>
             <td class="name">SD card</td>
-            <td>8 GB or larger, Class 10 recommended.</td>
+            <td>8 GB or larger, Class 10 recommended. Will be formatted as FAT32.</td>
           </tr>
           <tr>
             <td class="req">●</td>
@@ -1032,28 +1007,26 @@
       <span class="zone-num">2</span>
       The way to your first sound
     </div>
-    <div class="zone-sub">Eight steps · follow them in order · about one hour</div>
+    <div class="zone-sub">Seven steps · follow them in order · about one hour</div>
 
     <!-- Step 1 -->
     <div class="step">
       <div class="step-num">1</div>
       <div class="step-content">
-        <div class="step-title">Download DreamDexed</div>
+        <div class="step-title">Download the project ZIP</div>
         <p>
-          You need the current DreamDexed build as a ZIP archive. Save it
-          anywhere on your PC – you will not need it after the next step.
+          Everything you need is in a single file: the Controller, this Install
+          Guide, and the ready-to-use SD-card files. Save it anywhere on your PC.
         </p>
         <a class="download-btn"
-           href="https://github.com/DreamDexed/DreamDexed/releases/download/continuous/DreamDexed_261_260921-e06ec48.zip">
-          ⬇ Download DreamDexed (build 261)
+           href="https://github.com/Banana71/DreamDexed-Controller/archive/refs/heads/main.zip">
+          ⬇ Main.zip (full project)
         </a>
-        <p style="margin-top:10px;font-size:11px;color:var(--muted);">
-          Snapshot of the continuous release. If the link ever stops working,
-          check the
-          <a href="https://github.com/DreamDexed/DreamDexed/releases">DreamDexed Releases page</a>.
-        </p>
         <div class="step-check">
-          <div>The ZIP file is on your PC and has a reasonable size (~ hundreds of MB).</div>
+          <div>
+            The file <code>DreamDexed-Controller-main.zip</code> is in your
+            download folder.
+          </div>
         </div>
       </div>
     </div>
@@ -1062,23 +1035,30 @@
     <div class="step">
       <div class="step-num">2</div>
       <div class="step-content">
-        <div class="step-title">Flash the ZIP to the SD card</div>
+        <div class="step-title">Extract the ZIP</div>
         <p>
-          This turns the SD card into a bootable DreamDexed system.
+          Unpack <code>DreamDexed-Controller-main.zip</code> – on Windows:
+          right-click → <em>Extract All…</em>; on macOS: double-click the file.
+          You get a folder named <code>DreamDexed-Controller-main</code>.
         </p>
-        <ol>
+        <p>
+          Inside it you will find two things:
+        </p>
+        <ul>
           <li>
-            Install <a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a>
-            or <a href="https://etcher.balena.io/">balenaEtcher</a> on your PC.
+            the project files – <code>index.html</code> (the Controller),
+            <code>install.html</code> (this guide), and the Performance List;
           </li>
-          <li>Insert the SD card into your PC.</li>
           <li>
-            Choose the downloaded <strong>ZIP file</strong> as the source
-            and your <strong>SD card</strong> as the target. Start the write.
+            a folder called <code>SD-Card/</code> – this holds the system files
+            that go on the SD card for the Pi.
           </li>
-        </ol>
+        </ul>
         <div class="step-check">
-          <div>The tool reports success and the SD card is ejected or ready to remove.</div>
+          <div>
+            The folder <code>DreamDexed-Controller-main</code> contains both
+            <code>index.html</code> and a subfolder named <code>SD</code>.
+          </div>
         </div>
       </div>
     </div>
@@ -1087,31 +1067,32 @@
     <div class="step">
       <div class="step-num">3</div>
       <div class="step-content">
-        <div class="step-title">Replace minidexed.ini on the SD card</div>
-        <p>
-          The Pi needs to know it should talk to the Controller over MIDI and
-          use channel 10 for program changes. The quickest way: replace the
-          file on the SD card with the one below.
-        </p>
-        <a class="download-btn dark" href="minidexed.ini" download>
-          ⬇ Download minidexed.ini
-        </a>
-        <ol style="margin-top:10px;">
-          <li>Plug the SD card back into your PC (it has a readable first partition).</li>
-          <li>Find the existing <code>minidexed.ini</code> on the card.</li>
+        <div class="step-title">Prepare the SD card &amp; copy the SD files</div>
+        <ol>
           <li>
-            Replace it with the file you just downloaded – keep the exact
-            same file name.
+            Insert the SD card into your PC and format it as
+            <strong>FAT32</strong> (if it is not already).
+          </li>
+          <li>
+            Open the <code>SD-Card/</code> subfolder inside
+            <code>DreamDexed-Controller-main</code>.
+          </li>
+          <li>
+            Copy <strong>all files and folders inside</strong>
+            <code>SD-Card/</code> to the root of the SD card.
+            Do <em>not</em> copy the <code>SD-Card</code> folder itself – only its
+            contents.
           </li>
         </ol>
         <p style="font-size:12px;color:var(--muted);">
-          Prefer to keep your own file? The five lines that matter, and what
-          they do, are in <em>Appendix → The minidexed.ini in detail</em>.
+          Tip: The DreamDexed package already includes a pre-configured
+          <code>minidexed.ini</code> – you do not need to edit anything.
         </p>
         <div class="step-check">
           <div>
-            <code>minidexed.ini</code> on the SD card has <strong>today's date</strong>
-            and contains the line <code>USBGadget=1</code>.
+            The SD card contains the boot files and a file named
+            <code>minidexed.ini</code> at its top level (not inside an
+            <code>SD-Card/</code> folder).
           </div>
         </div>
       </div>
@@ -1154,11 +1135,21 @@
       <div class="step-content">
         <div class="step-title">Open the Controller and connect</div>
         <p>
-          This is where you actually drive the Pi. Everything happens in your
-          browser – no software to install.
+          The Controller is the browser interface you use to drive the Pi.
+          You can open it in two ways:
         </p>
+        <ul>
+          <li>
+            <strong>Online</strong> (recommended): open the hosted version at
+            this project's GitHub Pages URL.
+          </li>
+          <li>
+            <strong>Locally</strong>: open <code>index.html</code> directly
+            from the extracted <code>DreamDexed-Controller-main</code> folder.
+            This keeps working even without an internet connection.
+          </li>
+        </ul>
         <ol>
-          <li>Open the <a href="index.html">Controller</a>.</li>
           <li>
             In the <strong>MIDI OUT</strong> dropdown, select the Pi.
             The Controller usually detects it automatically because the name
@@ -1184,23 +1175,32 @@
     <div class="step">
       <div class="step-num">6</div>
       <div class="step-content">
-        <div class="step-title">Plug in headphones and set the volume</div>
+        <div class="step-title">Headphones, volume, MIDI keyboard</div>
         <p>
-          The Pi's audio output is the 3.5 mm jack on its board. Set the
-          Controller's volume slider to something comfortable before you
-          play your first note.
+          Now bring the last pieces together.
         </p>
         <ol>
           <li>Plug headphones or speakers into the Pi's 3.5 mm jack.</li>
           <li>
-            In the Controller, set the <strong>Volume</strong> slider to
-            about <code>64</code> (the default preset). You can refine it later.
+            In the Controller, set the <strong>Volume</strong> slider to about
+            <code>64</code> (the default preset). You can refine it later.
+          </li>
+          <li>Plug the MIDI keyboard into your PC and switch it on.</li>
+          <li>
+            In the Controller, open the <strong>MIDI IN</strong> dropdown and
+            select your keyboard. Forwarding starts automatically.
+          </li>
+          <li>
+            Set the keyboard's transmit channel to <strong>1</strong>
+            (usually a menu entry called <em>MIDI Channel</em> or
+            <em>Transmit Channel</em>).
           </li>
         </ol>
         <div class="step-check">
           <div>
-            The volume slider in the Controller reads a value between 0 and 127,
-            and the OLED log shows a <strong>VOLUME</strong> entry.
+            The green activity dot next to the MIDI IN dropdown blinks when
+            you press a key on the keyboard. The volume slider reads a value
+            between 0 and 127, and the OLED log shows a <strong>VOLUME</strong> entry.
           </div>
         </div>
       </div>
@@ -1209,37 +1209,6 @@
     <!-- Step 7 -->
     <div class="step">
       <div class="step-num">7</div>
-      <div class="step-content">
-        <div class="step-title">Connect your MIDI keyboard</div>
-        <p>
-          MiniDexed only makes sound when notes arrive. The keyboard can be
-          any USB MIDI controller – it just needs to send on
-          <strong>channel 1</strong>.
-        </p>
-        <ol>
-          <li>Plug the keyboard into your PC and switch it on.</li>
-          <li>
-            In the Controller, open the <strong>MIDI IN</strong> dropdown and
-            select your keyboard. Forwarding starts automatically.
-          </li>
-          <li>
-            Set the keyboard's transmit channel to <strong>1</strong>.
-            This is usually a menu entry called <em>MIDI Channel</em> or
-            <em>Transmit Channel</em>.
-          </li>
-        </ol>
-        <div class="step-check">
-          <div>
-            The green activity dot next to the MIDI IN dropdown blinks when
-            you press a key on the keyboard.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Step 8 -->
-    <div class="step">
-      <div class="step-num">8</div>
       <div class="step-content">
         <div class="step-title">Select a performance and play</div>
         <p>
@@ -1364,12 +1333,8 @@
     <div class="ts-item">
       <h4>Program change has no effect</h4>
       <ul>
-        <li>
-          <code>MIDIRXProgramChange=1</code> in the INI.
-        </li>
-        <li>
-          <code>PerformanceSelectChannel=10</code> in the INI.
-        </li>
+        <li><code>MIDIRXProgramChange=1</code> in the INI.</li>
+        <li><code>PerformanceSelectChannel=10</code> in the INI.</li>
         <li>
           In the Controller, the <strong>Prog Ch</strong> selector must be
           <code>10</code>.
@@ -1380,12 +1345,8 @@
     <div class="ts-item">
       <h4>The PGM and BANK buttons do nothing</h4>
       <ul>
-        <li>
-          <code>MIDIButtonCh=10</code> in the INI.
-        </li>
-        <li>
-          <code>MIDIButtonNotes=1</code> in the INI.
-        </li>
+        <li><code>MIDIButtonCh=10</code> in the INI.</li>
+        <li><code>MIDIButtonNotes=1</code> in the INI.</li>
         <li>
           The button mappings
           (<code>MIDIButtonPgmUp=6</code>, <code>MIDIButtonPgmDown=7</code>,
@@ -1399,10 +1360,14 @@
       <h4>PERFLIST.PDF shows nothing</h4>
       <ul>
         <li>
-          The PDF is loaded from an online mirror. Check your internet
-          connection.
+          Make sure the file <code>Performance List.pdf</code> sits next to
+          <code>index.html</code> (it is included in the project ZIP).
         </li>
-        <li>Reload the Controller page.</li>
+        <li>
+          If you opened the Controller locally by double-clicking
+          <code>index.html</code>, some browsers block local PDF embeds.
+          Use the online version on GitHub Pages instead.
+        </li>
       </ul>
     </div>
   </div>
@@ -1417,14 +1382,14 @@
     </div>
     <div class="zone-sub">Optional reading · only if you want to know more</div>
 
-    <!-- INI -->
     <details class="acc">
       <summary>The minidexed.ini in detail</summary>
       <div class="acc-body">
         <p>
-          Five lines are essential for the Controller to work. If you replaced
-          the whole file with the one from step 3, they are already correct.
-          If you prefer to edit your own file, here is what matters:
+          The project ZIP already contains a pre-configured
+          <code>minidexed.ini</code> in the <code>SD-Card/</code> subfolder.
+          If you want to edit your own file, here are the five lines that
+          matter:
         </p>
 
         <pre class="code"><span class="comment"># USB Gadget Mode: 1 = device mode (Pi appears as a MIDI interface)</span>
@@ -1482,7 +1447,6 @@
       </div>
     </details>
 
-    <!-- MIDI details -->
     <details class="acc">
       <summary>MIDI details — channels, forwarding, SysEx</summary>
       <div class="acc-body">
@@ -1523,7 +1487,6 @@
       </div>
     </details>
 
-    <!-- Sound quality -->
     <details class="acc">
       <summary>Sound quality — an honest word</summary>
       <div class="acc-body">
@@ -1555,7 +1518,6 @@
       </div>
     </details>
 
-    <!-- Next upgrades -->
     <details class="acc">
       <summary>Next upgrades and how to go further</summary>
       <div class="acc-body">

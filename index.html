@@ -889,9 +889,9 @@
       <p>
         If you have not set up DreamDexed on your Raspberry Pi yet, open
         the <a href="install.html">Install Guide</a> first – it walks you
-        through flashing the SD card, the <code>minidexed.ini</code>, and
-        the USB-Gadget-Mode. Come back here when the Pi appears as a MIDI
-        device on your PC.
+        through downloading the ready-to-use ZIP and copying it to the
+        SD card. Come back here when the Pi appears as a MIDI device on
+        your PC.
       </p>
 
       <h3>Purpose</h3>
@@ -1046,14 +1046,21 @@
       <h3>Performance List (Perflist.pdf)</h3>
       <p>
         The <b>PERFLIST.PDF</b> button in the top-right corner opens the
-        Soundplantage Performance List alongside the Controller. When the PDF
-        is open, the Controller shifts to the left so that both fit on screen.
-        Click the button again or use the ✕ in the PDF header to close it.
+        Performance List that ships with this project – a modified edition of
+        the Soundplantage list. When the PDF is open, the Controller shifts to
+        the left so that both fit on screen. Click the button again or use the
+        ✕ in the PDF header to close it.
       </p>
       <p>
-        The list is loaded from an online mirror. An internet connection is
-        required the first time it is opened; afterwards the browser may
-        cache it.
+        <b>Bank 1</b> contains a hand-picked selection of favourites chosen
+        for this project – a good place to start exploring. Banks 2 and up
+        are the original Soundplantage banks, unchanged.
+      </p>
+      <p>
+        The PDF is loaded from the same folder as the Controller. When you use
+        the online version (GitHub Pages), it works immediately. When you open
+        the Controller locally from a downloaded copy, keep the PDF next to
+        <code>index.html</code> – then no internet connection is needed.
       </p>
 
       <h3>Numpad</h3>
@@ -1083,8 +1090,10 @@
         <li>Volume does not respond – SysEx permission is missing. The MIDI
             permission dialog (including SysEx) must be accepted when connecting.</li>
         <li>Notes are not forwarded – check the MIDI IN dropdown.</li>
-        <li>PERFLIST.PDF shows nothing – check the internet connection.
-            The list is loaded from an online mirror.</li>
+        <li>PERFLIST.PDF shows nothing – make sure the file
+            <code>Performance List.pdf</code> sits next to <code>index.html</code>.
+            Some browsers block local file embeds; if you opened the Controller
+            directly from your file system, use the online version instead.</li>
       </ul>
 
     </div>
@@ -1100,7 +1109,7 @@
 
   const DEFAULT_VOLUME = 64;
   const DEFAULT_PROG_CHANNEL = 10;
-  const PDF_URL = 'https://cdn.jsdelivr.net/gh/Banana71/Soundplantage@main/Performance%20List.pdf#view=Fit';
+  const PDF_URL = 'Performance%20List.pdf#view=Fit';
 
   const state = {
     midiAccess: null,
