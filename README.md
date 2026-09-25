@@ -126,4 +126,4 @@ Based on **MiniDexed** by probonopd, licensed under the
   projects.
 
 The `doto-latin-900-normal.woff2` font is **Doto** by Óliver Lalan, licensed
-under the SIL Open Font License.<img width="763" height="768" alt="DreamDexed-Controller" src="https://github.com/user-attachments/assets/237ca8f4-6a23-4eae-a7ff-9bc4fcfafb0d" />
+under the SIL Open Font License.
