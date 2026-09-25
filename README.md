@@ -96,7 +96,7 @@ operating system. These browsers provide full Web MIDI support out of the box.
 
 ## Quick start
 
-1. Download [`Main.zip`](https://github.com/Banana71/DreamDexed-Controller/archive/refs/heads/main.zip) (the whole project).
+1. Download [`DreamDexed-Controller-main.zip`](https://github.com/Banana71/DreamDexed-Controller/archive/refs/heads/main.zip) (the whole project).
 2. Extract it. You get a folder `DreamDexed-Controller-main/` with the
    Controller, the Install Guide, and a subfolder `SD-Card/` containing the
    ready-to-copy SD-card files.
