@@ -12,22 +12,23 @@ Pi 4, and to explore what the instrument can do.
 No additional software. No bridge. No server. The browser communicates
 directly with the Pi via the Web MIDI API.
 
-A companion start page (`index.html`) guides first-time users through setup,
-parts and the first steps.
+A companion Install Guide (`install.html`) walks first-time users through
+setup, parts and the first steps.
 
 ---
 
-<img width="768" height="735" alt="DreamDexed-Controller" src="https://github.com/user-attachments/assets/86c24072-a8bf-49c9-a69a-965ffeb6bc5c" />
+[<img width="763" height="768" alt="DreamDexed Controller — click to open" src="https://github.com/user-attachments/assets/6eea0edf-19df-4e6f-b8fc-a519c86812b0" />](https://banana71.github.io/DreamDexed-Controller/index.html)
 
 ---
 
 ## What this repository contains
 
-| File | Purpose |
-|------|---------|
-| `controller.html` | The Controller — performance selection and MIDI forwarding |
-| `index.html` | Starter page — setup guide, parts list, downloads |
-| `minidexed.ini` | Pre-configured configuration file for the SD card |
+| File / Folder | Purpose |
+|---------------|---------|
+| `index.html` | The Controller — performance selection and MIDI forwarding |
+| `install.html` | Install Guide — setup, parts list, downloads, first steps |
+| `Performance List.pdf` | Modified edition of the Soundplantage list (Bank 1 = favourites) |
+| `SD-Card/` | Ready-to-copy files for the Raspberry Pi's SD card (includes `minidexed.ini`) |
 | `doto-latin-900-normal.woff2` | Local font, used by both pages |
 
 ---
@@ -45,9 +46,11 @@ from a keyboard or DAW. Everything happens in the browser.
   the Pi, on their original channel (typically 1). Active Sensing (`0xFE`)
   is filtered out.
 - **PERFLIST.PDF** – opens the modified Performance List that ships with this
-repository. Bank 1 is a curated selection of favourites chosen for this
-project; Banks 2 and up are the original Soundplantage banks.
-- **MANUAL** – opens the in-app user manual.
+  repository. Bank 1 is a curated selection of favourites chosen for this
+  project; Banks 2 and up are the original Soundplantage banks.
+- **MANUAL** – opens the in-app user manual (focused on operating the
+  Controller: typing bank/program numbers, using the Performance List,
+  keyboard shortcuts).
 
 The two MIDI channels are kept separate on purpose: notes arrive on channel
 1, program changes go out on channel 10 (`PerformanceSelectChannel=10`). This
@@ -67,8 +70,8 @@ avoids "ghost notes" — note messages being misinterpreted as program changes.
   on channel 1)
 - Headphones or speakers
 
-A DAC, OLED display or rotary encoder are optional — see section 08 of the
-starter page.
+A DAC, OLED display or rotary encoder are optional — see the Install Guide's
+Appendix section "Next upgrades and how to go further".
 
 ### Browser compatibility
 
@@ -87,7 +90,7 @@ operating system. These browsers provide full Web MIDI support out of the box.
 
 > **Warning:** In USB Gadget Mode the Pi is powered through the same USB-C
 > cable that carries the data. Do **not** connect a separate power supply.
-> See the starter page for details.
+> See the Install Guide for details.
 
 ---
 
@@ -100,11 +103,11 @@ operating system. These browsers provide full Web MIDI support out of the box.
 3. Format an SD card as FAT32 and copy the **contents** of `SD-Card/` to the
    card's root (not the folder itself).
 4. Insert the SD card into the Pi and connect it to your PC via USB-C.
-5. Open `index.html` (or the hosted URL), then click **Go to Controller**.
-6. In the Controller, select the Pi under **MIDI OUT** and press **CONNECT**.
-   Connect your **MIDI keyboard** and select it under **MIDI IN**.
-7. Enter a performance number and press **ENTER** — then play a note on your
-   keyboard.
+5. Connect your **MIDI keyboard** to the PC and switch it on.
+6. Open `index.html` (or the hosted URL). Select the Pi under **MIDI OUT**
+   and press **CONNECT**. Then select your keyboard under **MIDI IN**.
+7. Enter a performance number (for example `2/87` for bank 2, program 87)
+   and press **ENTER** — then play a note on your keyboard.
 
 Full instructions, troubleshooting and next steps are on the install guide page.
 
@@ -117,7 +120,10 @@ Based on **MiniDexed** by probonopd, licensed under the
 
 - MiniDexed: https://github.com/probonopd/MiniDexed
 - DreamDexed: https://github.com/DreamDexed/DreamDexed
-- Performance List and Controller: SOUNDPLANTAGE.COM
+- Controller, Performance List and the bundled performances:
+  Banana71 / SOUNDPLANTAGE.COM. The same author also created almost all
+  of the patches and performances used by the miniDexed and DreamDexed
+  projects.
 
 The `doto-latin-900-normal.woff2` font is **Doto** by Óliver Lalan, licensed
-under the SIL Open Font License.
+under the SIL Open Font License.<img width="763" height="768" alt="DreamDexed-Controller" src="https://github.com/user-attachments/assets/237ca8f4-6a23-4eae-a7ff-9bc4fcfafb0d" />
