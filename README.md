@@ -19,6 +19,10 @@ walks first-time users through setup, parts and the first steps.
 
 [<img width="763" height="768" alt="DreamDexed Controller — click to open" src="https://github.com/user-attachments/assets/6eea0edf-19df-4e6f-b8fc-a519c86812b0" />](https://banana71.github.io/DreamDexed-Controller/index.html)
 
+The live Controller is hosted on GitHub Pages and works directly in the
+browser — no installation needed:  
+<https://banana71.github.io/DreamDexed-Controller/index.html>
+
 ---
 
 ## What this repository contains
