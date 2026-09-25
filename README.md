@@ -12,8 +12,8 @@ Pi 4, and to explore what the instrument can do.
 No additional software. No bridge. No server. The browser communicates
 directly with the Pi via the Web MIDI API.
 
-A companion Install Guide (`install.html`) walks first-time users through
-setup, parts and the first steps.
+A companion Install Guide ([`install.html`](https://banana71.github.io/DreamDexed-Controller/install.html))
+walks first-time users through setup, parts and the first steps.
 
 ---
 
