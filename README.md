@@ -120,10 +120,8 @@ Based on **MiniDexed** by probonopd, licensed under the
 
 - MiniDexed: https://github.com/probonopd/MiniDexed
 - DreamDexed: https://github.com/DreamDexed/DreamDexed
-- Controller, Performance List and the bundled performances:
-  Banana71 / SOUNDPLANTAGE.COM. The same author also created almost all
-  of the patches and performances used by the miniDexed and DreamDexed
-  projects.
+- Controller App, Performances and Voices:
+  Banana71 / SOUNDPLANTAGE.COM
 
 The `doto-latin-900-normal.woff2` font is **Doto** by Óliver Lalan, licensed
 under the SIL Open Font License.
