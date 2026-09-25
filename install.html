@@ -813,21 +813,27 @@
     <p>
       The <strong>DreamDexed Controller</strong> is the simplest way to try
       out <strong>miniDexed / DreamDexed</strong> without any extra hardware –
-      no rotary encoder, no OLED display, no DAC HAT. Everything is done
-      from a single browser tab on your PC.
+      no rotary encoder, no OLED display, no DAC HAT.
+      Everything is driven from a single browser tab on your PC.
     </p>
     <p>
-      It lets you listen to the bundled Soundplantage performances right away:
-      browse banks and programs, jump straight to a numbered performance,
-      adjust the master volume, and forward notes from your MIDI keyboard or
-      DAW to the Pi – all in real time, with no software to install on the
-      Raspberry Pi itself.
+      The Controller lets you browse and select the bundled performances,
+      adjust the master volume, and forward notes from your MIDI keyboard
+      or DAW to the Pi. That is exactly what is needed to try out the
+      included sounds.
     </p>
     <p>
-      This <strong>Install Guide</strong> walks you through the one-time setup:
-      downloading the ready-to-use project package, copying the SD-card files
-      to a card, and connecting the Pi to your PC in USB Gadget Mode. Once that
-      is done, the <a href="index.html">Controller</a> is all you ever need to open.
+      One honest word about sound: without an external DAC, the Pi plays
+      through its 3.5 mm jack in <strong>PWM mode</strong>. That is fine for
+      getting a real impression of the performances, but not for serious
+      listening or recording. See the Appendix for the details.
+    </p>
+    <p>
+      This <strong>Install Guide</strong> walks you through the one-time
+      setup: downloading the ready-to-use project package, copying the
+      SD-card files to a card, and connecting the Pi to your PC in USB
+      Gadget Mode. Once that is done, the
+      <a href="index.html">Controller</a> is all you ever need to open.
     </p>
   </div>
 
@@ -918,7 +924,6 @@
         <li>The Pi must be <strong>USB bus powered only</strong> – this is required by the USB specification.</li>
         <li>Use the <strong>USB-C port</strong> (the one you would normally plug the power supply into).</li>
         <li><strong>Never</strong> use the blue USB-A ports for Gadget Mode – those are host ports only.</li>
-        <li>If you need the Pi to be powered independently (for example, to add a display later), use a <strong>USB-C Power / Data Splitter</strong>. Do not improvise this.</li>
       </ul>
       <p>
         The MiniDexed Wiki puts it plainly: <em>“When using a Raspberry
@@ -1057,7 +1062,7 @@
         <div class="step-check">
           <div>
             The folder <code>DreamDexed-Controller-main</code> contains both
-            <code>index.html</code> and a subfolder named <code>SD</code>.
+            <code>index.html</code> and a subfolder named <code>SD-Card</code>.
           </div>
         </div>
       </div>
@@ -1102,13 +1107,44 @@
     <div class="step">
       <div class="step-num">4</div>
       <div class="step-content">
-        <div class="step-title">Insert the SD card &amp; connect the Pi</div>
+        <div class="step-title">Connect your MIDI keyboard to the PC</div>
+        <p>
+          The keyboard is what will actually trigger sounds, so bring it into
+          the picture before the Pi. Any USB MIDI controller works – it just
+          needs to send on <strong>channel 1</strong>.
+        </p>
+        <ol>
+          <li>Plug the MIDI keyboard into your PC and switch it on.</li>
+          <li>
+            Set the keyboard's transmit channel to <strong>1</strong>
+            (usually a menu entry called <em>MIDI Channel</em> or
+            <em>Transmit Channel</em>).
+          </li>
+        </ol>
+        <div class="step-check">
+          <div>
+            The keyboard shows up as a MIDI device on your PC. You do not
+            need to select it in the Controller yet – that comes in step 6.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <div class="step-title">Insert the SD card, connect the Pi &amp; plug in headphones</div>
         <p>
           The Pi is now ready to boot. The moment you plug it into your PC, it
           powers up and introduces itself as a MIDI device.
         </p>
         <ol>
           <li>Eject the SD card from your PC and insert it into the Pi.</li>
+          <li>
+            Plug headphones or speakers into the Pi's 3.5 mm jack, and set the
+            volume to something low to start with.
+          </li>
           <li>
             Connect the Pi's <strong>USB-C port</strong> to a USB-A port on
             your PC using the USB-C to USB-A cable.
@@ -1120,23 +1156,21 @@
         </ol>
         <div class="step-check">
           <div>
-            After about 15 seconds the Pi appears on your PC as a MIDI device
-            named <strong>DreamDexed</strong> or <strong>Gadget Serial</strong>.
-            On Windows, look in Device Manager under
-            <em>Sound, video and game controllers</em>.
+            After a few seconds the Pi appears on your PC as a MIDI device
+            named <strong>MiniDexed</strong>.
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Step 5 -->
+    <!-- Step 6 -->
     <div class="step">
-      <div class="step-num">5</div>
+      <div class="step-num">6</div>
       <div class="step-content">
         <div class="step-title">Open the Controller and connect</div>
         <p>
-          The Controller is the browser interface you use to drive the Pi.
-          You can open it in two ways:
+          Now that both devices are ready, start the Controller. It is the
+          browser interface that ties the keyboard and the Pi together.
         </p>
         <ul>
           <li>
@@ -1151,56 +1185,31 @@
         </ul>
         <ol>
           <li>
+            As soon as the page opens, the browser asks for permission to
+            use MIDI devices. <strong>Click Allow</strong> – including the
+            <em>SysEx</em> part. Without this, the Controller cannot talk to
+            the Pi, and volume control will not work.
+          </li>
+          <li>
             In the <strong>MIDI OUT</strong> dropdown, select the Pi.
             The Controller usually detects it automatically because the name
-            contains <code>DreamDexed</code>, <code>miniDexed</code> or
-            <code>Gadget</code>.
+            contains <code>miniDexed</code>.
           </li>
           <li>Press <strong>CONNECT</strong>.</li>
           <li>
-            Accept the browser's MIDI permission prompt
-            (including <em>SysEx</em>) – otherwise volume control will not work.
+            In the <strong>MIDI IN</strong> dropdown, select your MIDI
+            keyboard. Forwarding starts automatically.
+          </li>
+          <li>
+            Set the <strong>Volume</strong> slider to about <code>64</code>
+            (the default preset). You can refine it later.
           </li>
         </ol>
         <div class="step-check">
           <div>
-            The blue OLED log inside the Controller shows
-            <strong>“>> connected to …”</strong>.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Step 6 -->
-    <div class="step">
-      <div class="step-num">6</div>
-      <div class="step-content">
-        <div class="step-title">Headphones, volume, MIDI keyboard</div>
-        <p>
-          Now bring the last pieces together.
-        </p>
-        <ol>
-          <li>Plug headphones or speakers into the Pi's 3.5 mm jack.</li>
-          <li>
-            In the Controller, set the <strong>Volume</strong> slider to about
-            <code>64</code> (the default preset). You can refine it later.
-          </li>
-          <li>Plug the MIDI keyboard into your PC and switch it on.</li>
-          <li>
-            In the Controller, open the <strong>MIDI IN</strong> dropdown and
-            select your keyboard. Forwarding starts automatically.
-          </li>
-          <li>
-            Set the keyboard's transmit channel to <strong>1</strong>
-            (usually a menu entry called <em>MIDI Channel</em> or
-            <em>Transmit Channel</em>).
-          </li>
-        </ol>
-        <div class="step-check">
-          <div>
-            The green activity dot next to the MIDI IN dropdown blinks when
-            you press a key on the keyboard. The volume slider reads a value
-            between 0 and 127, and the OLED log shows a <strong>VOLUME</strong> entry.
+            The blue OLED log shows <strong>“>> connected to …”</strong>.
+            The green activity dot next to <em>MIDI IN</em> blinks when you
+            press a key on the keyboard.
           </div>
         </div>
       </div>

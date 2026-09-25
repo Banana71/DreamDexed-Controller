@@ -68,12 +68,10 @@
   }
 
   .brand {
-    position: relative;
     padding: 0 4px 12px 4px;
     border-bottom: 1px solid #000;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     text-align: center;
-    min-height: 92px;               /* Platz für 3 gestapelte Buttons */
   }
 
   .brand .logo-sm {
@@ -104,21 +102,19 @@
     margin-top: 6px;
   }
 
-  /* Top-right action buttons (INSTALL GUIDE + PERFLIST.PDF + MANUAL)
-     stacked vertically, right-aligned, all identical size. */
-  .brand .top-actions {
-    position: absolute;
-    top: 0;
-    right: 0;
+  /* Toolbar: centered row of action buttons below the header.
+     All three buttons share the same fixed width. */
+  .toolbar {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
   }
 
   .brand-btn {
     width: 120px;
-    height: 24px;
+    height: 26px;
     padding: 0;
     display: inline-flex;
     align-items: center;
@@ -763,14 +759,16 @@
 <body>
 <div class="synth">
   <div class="brand">
-    <div class="top-actions">
-      <a class="brand-btn" href="install.html">Install Guide</a>
-      <button class="brand-btn" id="list-btn">Perflist.pdf</button>
-      <button class="brand-btn" id="manual-btn">Manual</button>
-    </div>
     <div class="logo-sm">miniDexed / DreamDexed</div>
     <div class="logo-lg">Controller</div>
     <div class="sub">Browser Edition by SOUNDPLANTAGE.COM</div>
+  </div>
+
+  <!-- Toolbar: centered actions under the header -->
+  <div class="toolbar">
+    <a class="brand-btn" href="install.html">Install Guide</a>
+    <button class="brand-btn" id="manual-btn">Manual</button>
+    <button class="brand-btn" id="list-btn">Perflist.pdf</button>
   </div>
 
   <div class="panel">
@@ -885,117 +883,70 @@
     </div>
     <div class="modal-body">
 
-      <h3>First time here?</h3>
+      <h3>About this manual</h3>
       <p>
-        If you have not set up DreamDexed on your Raspberry Pi yet, open
-        the <a href="install.html">Install Guide</a> first – it walks you
-        through downloading the ready-to-use ZIP and copying it to the
-        SD card. Come back here when the Pi appears as a MIDI device on
-        your PC.
+        This manual covers operating the Controller – how to select sounds,
+        adjust volume, and drive everything from the mouse or the PC keyboard.
+        Setting up the Raspberry Pi and installing DreamDexed is covered in
+        the <a href="install.html">Install Guide</a>.
       </p>
 
-      <h3>Purpose</h3>
-      <p>
-        DreamDexed / miniDexed on a Raspberry Pi is normally operated
-        headless. Without a screen and without a keyboard attached to the
-        Pi, you cannot browse or select performances directly on the device.
-        This Controller provides exactly that missing user interface:
-        connect a "bare" Raspberry Pi running in USB gadget mode to a PC,
-        open the browser, and select performances, banks and programs,
-        adjust master volume, and step through parameters using the
-        PGM / BANK navigation keys – all without a monitor, a keyboard,
-        or any extra software on the Pi itself.
-      </p>
-      <p>
-        No bridge, no server, no additional tooling on either side:
-        the browser talks straight to the Pi over the Web MIDI API.
-      </p>
-
-      <h3>Overview</h3>
-      <p>
-        The DreamDexed Controller drives miniDexed / DreamDexed on a
-        Raspberry Pi via the <b>Web MIDI API</b>. The Pi runs in USB gadget mode
-        and appears on Windows as a MIDI interface. The controller runs in the
-        browser (Chrome / Edge / Brave) and sends directly – no bridge, no server.
-      </p>
-
-      <h3>Establishing a connection</h3>
-      <ol>
-        <li>Connect the Raspberry Pi to the PC via USB.</li>
-        <li>In the <b>MIDI OUT</b> dropdown, select the device. Devices whose
-            name contains <code>dreamdexed</code>, <code>minidexed</code> or
-            <code>gadget</code> are detected automatically and pre-selected.</li>
-        <li>Press <b>CONNECT</b>.</li>
-      </ol>
-      <p>
-        On first launch, the browser asks for MIDI permission (including SysEx).
-        This must be granted, otherwise volume control will not work.
-        The last selection is stored in the browser.
-      </p>
-
-      <h3>MIDI In (optional forwarding)</h3>
-      <p>
-        The Controller can also forward incoming MIDI data to the Raspberry Pi.
-        This lets you play notes from a DAW or from a plugin such as Dexed
-        Standalone while the Controller handles program changes at the same time.
-      </p>
-      <p>
-        To use this feature, the MIDI source must appear as a MIDI input that
-        the operating system can see. The Controller does not require any
-        special software on its side – it simply forwards whatever it receives.
-      </p>
-      <ol>
-        <li>In the Controller, select the source in the <b>MIDI IN</b> dropdown.
-            Forwarding starts automatically – choose <code>— off —</code> to stop it.</li>
-      </ol>
-      <p>
-        <b>Forwarding is 1:1.</b> Every incoming MIDI message is passed to the
-        selected MIDI OUT exactly as it arrives, on its original channel. No
-        channel is rewritten, nothing is filtered – with one exception:
-        <b>Active Sensing (0xFE)</b> messages are discarded. Many older
-        keyboards send them every ~200 ms as a "keep-alive" signal. The Pi
-        does not need them, and some devices misbehave on them. The green
-        activity dot next to the dropdown blinks briefly on every
-        <i>forwarded</i> message.
-      </p>
-
-      <h3>Prog Ch</h3>
-      <p>
-        The <b>Prog Ch</b> selector sets the MIDI channel used for
-        <i>everything the Controller itself sends</i>: Program Change,
-        Bank Select, Master Volume (SysEx) and the PGM / BANK navigation keys.
-        The default is <b>10</b>, matching
-        <code>PerformanceSelectChannel=10</code> in DreamDexed.
-      </p>
-      <p>
-        <b>Why this matters:</b> notes forwarded from the MIDI IN usually
-        arrive on channel 1, while program changes are sent on channel 10.
-        Keeping them on separate channels avoids "ghost notes" – a note
-        message being misinterpreted as a program change on the same channel.
-      </p>
-
-      <h3>Selecting programs</h3>
-      <div class="kv">
-        <span class="k">Program</span>
-        <span class="v"><code>PPP</code> + ENTER (1–128)</span>
-        <span class="k">Bank + Program</span>
-        <span class="v"><code>BBB/PPP</code> + ENTER (1–128 / 1–128)</span>
-      </div>
-      <p>
-        Example: <code>64</code> + ENTER selects program 64.
-        <code>3/12</code> + ENTER selects bank 3, program 12.
-      </p>
-
-      <h3>Volume</h3>
+      <h3>First look – the two displays</h3>
       <ul>
-        <li><b>Slider</b>: value 0–127.</li>
-        <li><b>Presets</b>: 64, 100, 127.</li>
-        <li><b>MUTE</b>: sets volume to 0 and remembers the previous value.
-            A second click restores it.</li>
-        <li>Default value on startup: <b>64</b>.</li>
+        <li>
+          <b>Green LCD (left)</b>: shows what you are typing (right-aligned)
+          and, below it, the last command that was sent to the Pi.
+        </li>
+        <li>
+          <b>Blue OLED (right)</b>: a running log of the last five MIDI
+          messages. Useful to confirm that a command actually went out.
+          Forwarded notes are not logged – the log stays focused on the
+          commands you send.
+        </li>
       </ul>
 
-      <h3>Navigation (right of the numpad)</h3>
+      <h3>Connecting the Pi</h3>
+      <p>
+        Select the Raspberry Pi in the <b>MIDI OUT</b> dropdown and press
+        <b>CONNECT</b>. The OLED log confirms with
+        <code>&gt;&gt; connected to …</code>. Your selection is remembered
+        for the next time.
+      </p>
+      <p>
+        If you want to play notes from your MIDI keyboard through the Pi,
+        select the keyboard in the <b>MIDI IN</b> dropdown. Forwarding
+        starts automatically – choose <code>— off —</code> to stop it.
+      </p>
+
+      <h3>Selecting a sound – the syntax</h3>
+      <p>
+        This is where most of the work happens. Every performance on the Pi
+        has a <b>bank</b> and a <b>program number</b>. You type them on the
+        numpad and press ENTER.
+      </p>
+      <div class="kv">
+        <span class="k">Program only</span>
+        <span class="v"><code>PPP</code> + ENTER &nbsp;(1–128)</span>
+        <span class="k">Bank + Program</span>
+        <span class="v"><code>BBB/PPP</code> + ENTER &nbsp;(1–128 / 1–128)</span>
+      </div>
+      <p><b>Examples</b></p>
+      <ul>
+        <li><code>64</code> + ENTER → program 64 in the current bank</li>
+        <li><code>2/87</code> + ENTER → bank 2, program 87</li>
+        <li><code>3/12</code> + ENTER → bank 3, program 12</li>
+      </ul>
+      <p><b>Typing mistakes</b></p>
+      <ul>
+        <li><b>Backspace</b> – deletes the last digit</li>
+        <li><b>ESC</b> – clears the whole input</li>
+        <li>
+          A number outside 1–128 shows an error on the LCD and clears the
+          input automatically.
+        </li>
+      </ul>
+
+      <h3>Stepping through banks and programs</h3>
       <div class="kv">
         <span class="k">PGM + / −</span>
         <span class="v">Program up / down</span>
@@ -1003,18 +954,55 @@
         <span class="v">Bank up / down</span>
       </div>
       <p>
-        These keys send Note-On (velocity 1) on press and Note-Off on release.
-        After pressing, the green status line is cleared, because the Pi has
-        changed its value on its own and the controller does not know the new
-        value.
+        Each press sends a short MIDI message to the Pi, which advances to
+        the next or previous program. Use this when you want to audition
+        sounds in order – or when you do not yet know the exact number.
+        The LCD status line is cleared after each press, because from that
+        moment on the Pi is the source of truth for what is selected.
       </p>
 
-      <h3>Keyboard shortcuts</h3>
+      <h3>Volume</h3>
+      <ul>
+        <li><b>Slider</b>: value 0–127.</li>
+        <li><b>Presets</b>: 64, 100, 127.</li>
+        <li>
+          <b>MUTE</b>: sets volume to 0 and remembers the previous level.
+          A second click restores it.
+        </li>
+      </ul>
+
+      <h3>The Performance List (Perflist.pdf)</h3>
       <p>
-        As long as the browser window has focus, the Controller can be driven
-        entirely from the PC keyboard. All shortcuts behave exactly like their
-        on-screen counterparts, including the Note-On / Note-Off cycle and the
-        visual highlight on the matching button.
+        The <b>PERFLIST.PDF</b> button opens the Performance List alongside
+        the Controller. This is your reference for finding sounds.
+      </p>
+      <ul>
+        <li>
+          The list is organized by <b>bank</b> and <b>program number</b> –
+          the same two numbers you type on the numpad.
+        </li>
+        <li>
+          <b>Bank 1</b> contains a curated selection of favourites chosen
+          for this project – a good place to start exploring.
+        </li>
+        <li>
+          <b>Banks 2 and up</b> are the original Soundplantage banks,
+          unchanged.
+        </li>
+      </ul>
+      <p>
+        To select a sound from the list, type its bank and program number
+        exactly as shown (for example <code>2/87</code>) and press ENTER.
+        The Controller shifts to the left while the PDF is open, so both fit
+        on screen. Click the button again, or use the ✕ in the PDF header,
+        to close it.
+      </p>
+
+      <h3>Typing on the PC keyboard</h3>
+      <p>
+        Everything you can do with the mouse, you can do with the PC
+        keyboard. As long as the browser window has focus, the Controller
+        listens to:
       </p>
       <div class="kv">
         <span class="k">0 – 9</span>
@@ -1022,7 +1010,7 @@
         <span class="k">/ &nbsp;or&nbsp; :</span>
         <span class="v">Bank / Program separator</span>
         <span class="k">Enter</span>
-        <span class="v">Send the buffered program or bank/program</span>
+        <span class="v">Send the buffered input</span>
         <span class="k">Backspace</span>
         <span class="v">Delete last character</span>
         <span class="k">Escape</span>
@@ -1037,63 +1025,50 @@
         <span class="v">BANK − &nbsp;(bank down)</span>
       </div>
       <p>
-        <b>Note:</b> If a dropdown currently has keyboard focus (after clicking
-        a select), plain character shortcuts are suppressed so that the
+        So if you want to select bank 2, program 87, just type
+        <code>2/87</code> and press <b>Enter</b> – no need to touch the
+        mouse. The corresponding buttons on screen light up briefly, so you
+        can see exactly what was sent.
+      </p>
+      <p>
+        <b>Tip:</b> If a dropdown currently has keyboard focus (after you
+        clicked it), plain character shortcuts are suppressed so that the
         dropdown's own key handling is not disturbed. Click anywhere on the
         panel to return focus to the Controller.
       </p>
 
-      <h3>Performance List (Perflist.pdf)</h3>
+      <h3>Clearing an error</h3>
       <p>
-        The <b>PERFLIST.PDF</b> button in the top-right corner opens the
-        Performance List that ships with this project – a modified edition of
-        the Soundplantage list. When the PDF is open, the Controller shifts to
-        the left so that both fit on screen. Click the button again or use the
-        ✕ in the PDF header to close it.
-      </p>
-      <p>
-        <b>Bank 1</b> contains a hand-picked selection of favourites chosen
-        for this project – a good place to start exploring. Banks 2 and up
-        are the original Soundplantage banks, unchanged.
-      </p>
-      <p>
-        The PDF is loaded from the same folder as the Controller. When you use
-        the online version (GitHub Pages), it works immediately. When you open
-        the Controller locally from a downloaded copy, keep the PDF next to
-        <code>index.html</code> – then no internet connection is needed.
+        If the green LCD shows
+        <code>ERROR: expected PPP or BBB/PPP</code>, the number you typed
+        was empty, contained non-digits, or fell outside the 1–128 range.
+        Press ESC or Backspace to clear the input and try again.
       </p>
 
-      <h3>Numpad</h3>
+      <h3>If something does not work</h3>
       <ul>
-        <li><b>Mouse</b>: click the keys.</li>
-        <li><b>Keyboard</b>: see <i>Keyboard shortcuts</i> above.</li>
-      </ul>
-
-      <h3>Displays</h3>
-      <ul>
-        <li><b>Green LCD (left)</b>: current input (right-aligned) and,
-            below it, the last command that was sent.</li>
-        <li><b>Blue OLED (right)</b>: log of the last 5 MIDI commands.
-            New entries appear at the bottom, older ones drop off the top.
-            Forwarded notes are not logged, to keep the program-change
-            history readable.</li>
-      </ul>
-
-      <h3>Troubleshooting</h3>
-      <ul>
-        <li><code>no MIDI output selected</code> – no output chosen.
-            Check that the Pi is connected, then press CONNECT.</li>
-        <li><code>Web MIDI API not available</code> – the browser does not
-            support Web MIDI. Use Chrome, Edge or Brave.</li>
-        <li><code>MIDI access denied</code> – permission was denied in the
-            browser. Reset it in the site settings and reload.</li>
-        <li>Volume does not respond – SysEx permission is missing. The MIDI
-            permission dialog (including SysEx) must be accepted when connecting.</li>
-        <li>Notes are not forwarded – check the MIDI IN dropdown.</li>
-        <li>PERFLIST.PDF shows nothing – make sure the file
-            <code>Performance List.pdf</code> sits next to <code>index.html</code>.
-            Some browsers block local file embeds; if you opened the Controller
-            directly from your file system, use the online version instead.</li>
+        <li>
+          <code>no MIDI output selected</code> – no output chosen. Check
+          that the Pi is connected, then press CONNECT.
+        </li>
+        <li>
+          Volume does not respond – the browser's MIDI permission
+          (including SysEx) was not granted. Reset it in the site settings
+          and reload.
+        </li>
+        <li>
+          Notes from the keyboard are not heard – check the
+          <b>MIDI IN</b> dropdown.
+        </li>
+        <li>
+          PERFLIST.PDF shows nothing – the PDF must sit next to
+          <code>index.html</code>. Some browsers block local file embeds;
+          use the online version instead.
+        </li>
+        <li>
+          Other errors – the Install Guide's troubleshooting section covers
+          the setup side.
+        </li>
       </ul>
 
     </div>
