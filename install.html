@@ -79,7 +79,7 @@
   }
 
   .brand .logo-lg {
-    font-family: 'Doto', 'Helvetica', 'Arial', sans-serif;
+    font-family: 'Helvetica', 'Arial', sans-serif;
     font-weight: 900;
     font-size: 36px;
     letter-spacing: 4px;
@@ -819,7 +819,7 @@
     <p>
       The Controller lets you browse and select the bundled performances,
       adjust the master volume, and forward notes from your MIDI keyboard
-      or DAW to the Pi. That is exactly what is needed to try out the
+      to the Pi. That is exactly what is needed to try out the
       included sounds.
     </p>
     <p>
@@ -884,8 +884,7 @@
       <div class="tile-icon">🎹</div>
       <div class="tile-title">Open the Controller</div>
       <div class="tile-desc">
-        Select the Pi in <em>MIDI OUT</em>, press <em>CONNECT</em>,
-        play your first performance.
+        Select the Pi in <em>MIDI OUT</em> and play your first performance.
       </div>
       <div class="tile-cta">Open</div>
     </a>
@@ -1193,9 +1192,9 @@
           <li>
             In the <strong>MIDI OUT</strong> dropdown, select the Pi.
             The Controller usually detects it automatically because the name
-            contains <code>miniDexed</code>.
+            contains <code>miniDexed</code>, and connects as soon as it is
+            selected.
           </li>
-          <li>Press <strong>CONNECT</strong>.</li>
           <li>
             In the <strong>MIDI IN</strong> dropdown, select your MIDI
             keyboard. Forwarding starts automatically.
@@ -1208,8 +1207,8 @@
         <div class="step-check">
           <div>
             The blue OLED log shows <strong>“>> connected to …”</strong>.
-            The green activity dot next to <em>MIDI IN</em> blinks when you
-            press a key on the keyboard.
+            The activity dot next to <em>MIDI IN</em> blinks when you press
+            a key on the keyboard.
           </div>
         </div>
       </div>
@@ -1255,7 +1254,7 @@
       <p>
         From now on, you only need the
         <a href="index.html" style="color:#70ff90;">Controller</a> –
-        select the Pi, press CONNECT, and play.
+        select the Pi, and play.
       </p>
       <p>
         Everything below this line is reference material.
@@ -1289,7 +1288,7 @@
           It must show your keyboard, not <code>— off —</code>.
         </li>
         <li>
-          Does the green activity dot blink when you press a key? If not, the
+          Does the activity dot blink when you press a key? If not, the
           keyboard is not reaching the browser.
         </li>
         <li>
@@ -1333,8 +1332,9 @@
         </li>
         <li>Unplug and replug the USB-C cable, then reload the page.</li>
         <li>
-          On Windows: look in Device Manager for a device named
-          <em>DreamDexed</em> or <em>Gadget Serial</em>.
+          On Windows: look in Device Manager under
+          <em>Sound, video and game controllers</em> for a device named
+          <em>MiniDexed</em>.
         </li>
       </ul>
     </div>
@@ -1361,6 +1361,11 @@
           (<code>MIDIButtonPgmUp=6</code>, <code>MIDIButtonPgmDown=7</code>,
           <code>MIDIButtonBankUp=8</code>, <code>MIDIButtonBankDown=9</code>)
           must be present.
+        </li>
+        <li>
+          In the Controller, the <strong>Prog Ch</strong> selector must be
+          <code>10</code> – the same channel the Pi listens on for button
+          messages.
         </li>
       </ul>
     </div>
@@ -1483,15 +1488,30 @@
           need it.
         </p>
 
+        <h5>Bank and Program selection</h5>
+        <p>
+          When you type <code>BBB/PPP</code> and press ENTER, the Controller
+          sends a standard <strong>Bank Select</strong> – Control Change 0
+          (MSB) and Control Change 32 (LSB) on the Prog Ch channel – followed
+          by a <strong>Program Change</strong> on the same channel. If you
+          type only <code>PPP</code>, only the Program Change is sent and the
+          bank stays as it was.
+        </p>
+        <p>
+          Note: some MiniDexed builds treat the bank number as informational
+          and rely solely on the Program Change. The Controller still sends
+          both messages for standards compliance, so it works either way.
+        </p>
+
         <h5>Master Volume SysEx</h5>
         <p>
           Volume is sent as a Universal SysEx Master Volume message:
         </p>
         <pre class="code">F0 7F 7F 04 01 00 <span class="val">vv</span> F7</pre>
         <p>
-          The value sits in the <em>MSB</em> (not the LSB). Accepting the
-          browser's MIDI permission prompt including <em>SysEx</em> is
-          therefore required for volume control to work.
+          The value sits in the <em>LSB</em>; the MSB is fixed at 0.
+          Accepting the browser's MIDI permission prompt including
+          <em>SysEx</em> is therefore required for volume control to work.
         </p>
       </div>
     </details>

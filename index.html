@@ -7,8 +7,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Doto:wght@900&display=swap" rel="stylesheet">
 <style>
-  /* Local Doto file. Falls vorhanden, wird sie bevorzugt.
-     Fehlt sie, greift automatisch der Google-Fonts-Link im <head>. */
   @font-face {
     font-family: 'Doto';
     src: url('doto-latin-900-normal.woff2') format('woff2');
@@ -31,7 +29,6 @@
     --key-dark-top: #5a5048;
     --label: #c8b8a0;
     --accent-red: #c83030;
-    /* OLED blue */
     --oled-bg: #000a18;
     --oled-edge: #041018;
     --oled-dim: #1e5a8a;
@@ -73,7 +70,6 @@
     margin-bottom: 12px;
     text-align: center;
   }
-
   .brand .logo-sm {
     font-family: 'Helvetica', 'Arial', sans-serif;
     font-weight: 400;
@@ -83,7 +79,6 @@
     text-transform: uppercase;
     margin-bottom: 2px;
   }
-
   .brand .logo-lg {
     font-family: 'Helvetica', 'Arial', sans-serif;
     font-weight: 900;
@@ -93,7 +88,6 @@
     text-shadow: 0 1px 0 #000, 0 0 12px rgba(255,255,255,0.08);
     line-height: 1;
   }
-
   .brand .sub {
     font-size: 9px;
     letter-spacing: 3px;
@@ -102,8 +96,6 @@
     margin-top: 6px;
   }
 
-  /* Toolbar: centered row of action buttons below the header.
-     All three buttons share the same fixed width. */
   .toolbar {
     display: flex;
     justify-content: center;
@@ -119,7 +111,6 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     background: linear-gradient(180deg, var(--key-dark-top), var(--key-dark));
     color: #e8e0d0;
     border: 1px solid #000;
@@ -154,7 +145,6 @@
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
   }
 
-  /* Display row: green LCD on the left, blue OLED on the right */
   .lcd-row {
     display: flex;
     gap: 12px;
@@ -162,7 +152,6 @@
     align-items: stretch;
   }
 
-  /* Green LCD: input (right aligned) + status line below (left aligned) */
   .lcd {
     flex: 0 0 60%;
     background: var(--lcd-bg);
@@ -178,7 +167,6 @@
     min-width: 0;
     overflow: hidden;
   }
-
   .lcd .line2 {
     font-family: 'Doto', 'Courier New', monospace;
     font-weight: 900;
@@ -191,7 +179,6 @@
     width: 100%;
     text-align: right;
   }
-
   .lcd .line3 {
     font-family: 'Courier New', monospace;
     font-size: 11px;
@@ -204,7 +191,6 @@
     text-align: left;
   }
 
-  /* Blue OLED (SSD1306 look) – fixed height for exactly 5 lines */
   .oled {
     flex: 1;
     background: var(--oled-bg);
@@ -222,8 +208,6 @@
     min-width: 0;
     overflow: hidden;
   }
-
-  /* 5 lines × 15px = 75px */
   .oled .log {
     height: 75px;
     overflow: hidden;
@@ -239,7 +223,6 @@
     padding: 0;
     box-shadow: none;
   }
-
   .oled .log .entry {
     white-space: nowrap;
     overflow: hidden;
@@ -286,7 +269,6 @@
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.9);
   }
 
-  /* Compact channel selector */
   select.chan-select {
     flex: 0 0 auto;
     width: 60px;
@@ -310,7 +292,6 @@
     font-size: 11px;
     transition: transform 0.05s, box-shadow 0.05s;
   }
-
   .btn:active, .btn.pressed {
     transform: translateY(2px);
     box-shadow:
@@ -318,18 +299,15 @@
       0 0 0 #000,
       0 1px 2px rgba(0,0,0,0.6);
   }
-
   .btn.dark {
     background: linear-gradient(180deg, var(--key-dark-top), var(--key-dark));
     color: #e8e0d0;
   }
-
   .btn.red {
     background: linear-gradient(180deg, #e04040, var(--accent-red));
     color: #fff;
   }
 
-  /* Small activity dot for MIDI IN */
   .activity-dot {
     width: 8px;
     height: 8px;
@@ -344,14 +322,12 @@
     box-shadow: 0 0 6px rgba(60,200,74,0.9);
   }
 
-  /* Volume slider */
   .vol-row {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 14px;
   }
-
   .vol-slider {
     -webkit-appearance: none;
     appearance: none;
@@ -363,7 +339,6 @@
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.9);
     outline: none;
   }
-
   .vol-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -375,7 +350,6 @@
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0,0,0,0.6);
   }
-
   .vol-slider::-moz-range-thumb {
     width: 18px;
     height: 22px;
@@ -384,7 +358,6 @@
     border-radius: 2px;
     cursor: pointer;
   }
-
   .vol-value {
     font-family: 'Courier New', monospace;
     font-size: 16px;
@@ -393,18 +366,15 @@
     min-width: 40px;
     text-align: right;
   }
-
   .vol-presets {
     display: flex;
     gap: 6px;
   }
-
   .vol-presets .btn {
     padding: 6px 10px;
     font-size: 10px;
   }
 
-  /* Key deck (calculator-style layout) */
   .calc-deck {
     display: flex;
     flex-wrap: wrap;
@@ -420,14 +390,12 @@
     border-radius: 3px;
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.9);
   }
-
   .numpad {
     display: grid;
     grid-template-columns: repeat(4, 72px);
     grid-auto-rows: 52px;
     gap: 8px;
   }
-
   .num-btn {
     display: flex;
     align-items: center;
@@ -447,27 +415,21 @@
       0 3px 6px rgba(0,0,0,0.6);
     transition: transform 0.05s, box-shadow 0.05s;
   }
-
   .num-btn:active, .num-btn.pressed {
     transform: translateY(2px);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 1px 2px rgba(0,0,0,0.6);
   }
-
   .num-btn.op {
     background: linear-gradient(180deg, #6a5040, #4a3528);
     color: #ffd0a0;
     font-size: 13px;
   }
-
   .num-btn.enter {
     background: linear-gradient(180deg, #e04040, var(--accent-red));
     color: #fff;
     font-size: 13px;
   }
-
-  .num-btn.wide {
-    grid-column: span 2;
-  }
+  .num-btn.wide { grid-column: span 2; }
 
   .func-grid {
     display: grid;
@@ -475,7 +437,6 @@
     grid-template-rows: repeat(2, 1fr);
     gap: 8px;
   }
-
   .nav-btn {
     background: linear-gradient(180deg, var(--key-light-top), var(--key-light));
     color: #1a1210;
@@ -498,24 +459,14 @@
     gap: 4px;
     line-height: 1;
   }
-
   .nav-btn:active, .nav-btn.pressed {
     transform: translateY(2px);
     box-shadow:
       inset 0 1px 0 rgba(255,255,255,0.3),
       0 1px 2px rgba(0,0,0,0.6);
   }
-
-  .nav-btn .arrow {
-    font-size: 22px;
-    line-height: 1;
-    font-weight: 900;
-  }
-
-  .nav-btn .label {
-    font-size: 10px;
-    letter-spacing: 1.5px;
-  }
+  .nav-btn .arrow { font-size: 22px; line-height: 1; font-weight: 900; }
+  .nav-btn .label { font-size: 10px; letter-spacing: 1.5px; }
 
   .footer {
     margin-top: 12px;
@@ -526,9 +477,6 @@
     text-transform: uppercase;
   }
 
-  /* ---------- PDF panel (right of the controller) ----------
-     Fills the remaining width up to a max of 1120px.
-     Height is 2/3 of the previous value. */
   .pdf-panel {
     display: none;
     flex-direction: column;
@@ -547,10 +495,7 @@
       0 12px 40px rgba(0,0,0,0.8);
     overflow: hidden;
   }
-
-  body.pdf-open .pdf-panel {
-    display: flex;
-  }
+  body.pdf-open .pdf-panel { display: flex; }
 
   .pdf-header {
     display: flex;
@@ -562,7 +507,6 @@
     border-bottom: 2px solid var(--panel-edge);
     flex-shrink: 0;
   }
-
   .pdf-title {
     font-family: 'Helvetica', 'Arial', sans-serif;
     font-weight: 900;
@@ -571,7 +515,6 @@
     color: #e8e0d0;
     text-transform: uppercase;
   }
-
   .pdf-close {
     background: linear-gradient(180deg, var(--key-light-top), var(--key-light));
     color: #1a1210;
@@ -588,12 +531,10 @@
       inset 0 1px 0 rgba(255,255,255,0.5),
       0 2px 0 #000;
   }
-
   .pdf-close:active {
     transform: translateY(2px);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 0 #000;
   }
-
   .pdf-iframe {
     flex: 1;
     width: 100%;
@@ -603,7 +544,6 @@
     min-height: 0;
   }
 
-  /* ---------- Modal: User manual ---------- */
   .modal-backdrop {
     display: none;
     position: fixed;
@@ -614,9 +554,7 @@
     align-items: center;
     padding: 24px 12px;
   }
-
   .modal-backdrop.open { display: flex; }
-
   .modal {
     background: linear-gradient(180deg, var(--body-mid), var(--body-dark));
     border: 3px solid var(--panel-edge);
@@ -631,7 +569,6 @@
     flex-direction: column;
     overflow: hidden;
   }
-
   .modal-header {
     display: flex;
     align-items: center;
@@ -641,7 +578,6 @@
     background: var(--panel);
     border-bottom: 2px solid var(--panel-edge);
   }
-
   .modal-header .title {
     font-family: 'Helvetica', 'Arial', sans-serif;
     font-weight: 900;
@@ -650,7 +586,6 @@
     color: #e8e0d0;
     text-transform: uppercase;
   }
-
   .modal-close {
     background: linear-gradient(180deg, var(--key-light-top), var(--key-light));
     color: #1a1210;
@@ -667,12 +602,10 @@
       inset 0 1px 0 rgba(255,255,255,0.5),
       0 2px 0 #000;
   }
-
   .modal-close:active {
     transform: translateY(2px);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 0 #000;
   }
-
   .modal-body {
     padding: 18px 20px 22px 20px;
     overflow-y: auto;
@@ -682,7 +615,6 @@
     font-size: 12px;
     line-height: 1.6;
   }
-
   .modal-body::-webkit-scrollbar { width: 8px; }
   .modal-body::-webkit-scrollbar-track { background: #0a0806; }
   .modal-body::-webkit-scrollbar-thumb {
@@ -703,12 +635,10 @@
     padding-bottom: 4px;
     border-bottom: 1px solid #2a1e18;
   }
-
   .modal-body h3:first-child { margin-top: 0; }
   .modal-body p { margin-bottom: 8px; }
   .modal-body ul, .modal-body ol { margin: 6px 0 10px 20px; }
   .modal-body li { margin-bottom: 4px; }
-
   .modal-body code {
     font-family: 'Courier New', monospace;
     background: #0a0806;
@@ -718,7 +648,6 @@
     border: 1px solid #000;
     font-size: 11px;
   }
-
   .modal-body a {
     color: var(--lcd-text);
     text-decoration: none;
@@ -728,7 +657,6 @@
     color: #70ff90;
     border-bottom-color: var(--lcd-text);
   }
-
   .modal-body .kv {
     display: grid;
     grid-template-columns: 160px 1fr;
@@ -764,7 +692,6 @@
     <div class="sub">Browser Edition by SOUNDPLANTAGE.COM</div>
   </div>
 
-  <!-- Toolbar: centered actions under the header -->
   <div class="toolbar">
     <a class="brand-btn" href="install.html">Install Guide</a>
     <button class="brand-btn" id="manual-btn">Manual</button>
@@ -773,7 +700,6 @@
 
   <div class="panel">
 
-    <!-- Display row: green LCD (input + status) + blue OLED (log) -->
     <div class="lcd-row">
       <div class="lcd">
         <div class="line2" id="lcd-line2">_</div>
@@ -784,27 +710,22 @@
       </div>
     </div>
 
-    <!-- MIDI In row -->
     <div class="row">
       <span class="row-label">MIDI In</span>
       <select id="input-select"></select>
       <span class="activity-dot" id="input-activity" title="Incoming MIDI activity"></span>
     </div>
 
-    <!-- MIDI Out row -->
     <div class="row">
       <span class="row-label">MIDI Out</span>
       <select id="device-select"></select>
-      <button class="btn" id="connect-btn">Connect</button>
     </div>
 
-    <!-- Prog Ch selector -->
     <div class="row">
       <span class="row-label">Prog Ch</span>
       <select id="prog-channel" class="chan-select"></select>
     </div>
 
-    <!-- Volume -->
     <div class="vol-row">
       <span class="row-label">Volume</span>
       <input type="range" min="0" max="127" value="64" class="vol-slider" id="vol-slider">
@@ -817,7 +738,6 @@
       </div>
     </div>
 
-    <!-- Key deck: numpad + function keys -->
     <div class="calc-deck">
       <div class="numpad">
         <button class="num-btn" data-key="7">7</button>
@@ -865,7 +785,6 @@
   </div>
 </div>
 
-<!-- PDF panel (right of the controller, hidden by default) -->
 <div class="pdf-panel" id="pdf-panel">
   <div class="pdf-header">
     <span class="pdf-title">PERFLIST.PDF</span>
@@ -874,7 +793,6 @@
   <iframe class="pdf-iframe" id="pdf-iframe" title="Performance List"></iframe>
 </div>
 
-<!-- Modal: User manual -->
 <div class="modal-backdrop" id="manual-backdrop">
   <div class="modal" role="dialog" aria-labelledby="manual-title">
     <div class="modal-header">
@@ -907,8 +825,9 @@
 
       <h3>Connecting the Pi</h3>
       <p>
-        Select the Raspberry Pi in the <b>MIDI OUT</b> dropdown and press
-        <b>CONNECT</b>. The OLED log confirms with
+        Select the Raspberry Pi in the <b>MIDI OUT</b> dropdown. The
+        connection is established immediately.
+        The OLED log confirms with
         <code>&gt;&gt; connected to …</code>. Your selection is remembered
         for the next time.
       </p>
@@ -916,6 +835,8 @@
         If you want to play notes from your MIDI keyboard through the Pi,
         select the keyboard in the <b>MIDI IN</b> dropdown. Forwarding
         starts automatically – choose <code>— off —</code> to stop it.
+        The small dot next to the dropdown blinks whenever incoming MIDI
+        data arrives.
       </p>
 
       <h3>Selecting a sound – the syntax</h3>
@@ -1027,8 +948,9 @@
       <p>
         So if you want to select bank 2, program 87, just type
         <code>2/87</code> and press <b>Enter</b> – no need to touch the
-        mouse. The corresponding buttons on screen light up briefly, so you
-        can see exactly what was sent.
+        mouse. Digits and the separator appear immediately on the green LCD,
+        so you always see what will be sent. The PGM and BANK buttons light
+        up briefly while their keyboard shortcuts are held down.
       </p>
       <p>
         <b>Tip:</b> If a dropdown currently has keyboard focus (after you
@@ -1042,14 +964,16 @@
         If the green LCD shows
         <code>ERROR: expected PPP or BBB/PPP</code>, the number you typed
         was empty, contained non-digits, or fell outside the 1–128 range.
-        Press ESC or Backspace to clear the input and try again.
+        Press ESC or Backspace to clear the input and try again. Any further
+        digit clears the message automatically.
       </p>
 
       <h3>If something does not work</h3>
       <ul>
         <li>
           <code>no MIDI output selected</code> – no output chosen. Check
-          that the Pi is connected, then press CONNECT.
+          that the Pi is connected, then pick it in the <b>MIDI OUT</b>
+          dropdown.
         </li>
         <li>
           Volume does not respond – the browser's MIDI permission
@@ -1106,7 +1030,6 @@
   const inputSelect = $('input-select');
   const progChannelSel = $('prog-channel');
   const inputActivity = $('input-activity');
-  const connectBtn = $('connect-btn');
   const volSlider = $('vol-slider');
   const volValue = $('vol-value');
   const logEl = $('log');
@@ -1224,46 +1147,48 @@
 
   function programChange(prog1based) {
     const ch = state.progChannel - 1;
-    sendBytes([0xC0 | ch, (prog1based - 1) & 0x7F], false, 'PROGRAM');
+    return sendBytes([0xC0 | ch, (prog1based - 1) & 0x7F], false, 'PROGRAM');
   }
 
   function bankSelect(bank1based) {
     const ch = state.progChannel - 1;
     const lsb = (bank1based - 1) & 0x7F;
-    sendBytes([0xB0 | ch, 0x00, 0x00], false, 'BANK');
-    sendBytes([0xB0 | ch, 0x20, lsb], false, 'BANK');
+    const ok1 = sendBytes([0xB0 | ch, 0x00, 0x00], false, 'BANK');
+    const ok2 = sendBytes([0xB0 | ch, 0x20, lsb], false, 'BANK');
+    return ok1 && ok2;
   }
 
-  function setMasterVolume(vol) {
+  function setMasterVolume(vol, silent) {
     const v = Math.max(0, Math.min(127, vol));
-    sendBytes([0xF0, 0x7F, 0x7F, 0x04, 0x01, 0x00, v, 0xF7], false, 'VOLUME');
+    return sendBytes([0xF0, 0x7F, 0x7F, 0x04, 0x01, 0x00, v, 0xF7], silent, 'VOLUME');
   }
 
   function sendNoteOn(note, vel, label) {
     const ch = state.progChannel - 1;
-    sendBytes([0x90 | ch, note & 0x7F, vel & 0x7F], false, label);
+    return sendBytes([0x90 | ch, note & 0x7F, vel & 0x7F], false, label);
   }
 
   function sendNoteOff(note) {
     const ch = state.progChannel - 1;
-    sendBytes([0x80 | ch, note & 0x7F, 0x00], true);
+    return sendBytes([0x80 | ch, note & 0x7F, 0x00], true);
   }
 
   // ---------- MIDI In forwarding (1:1 pass-through) ----------
   function handleIncoming(e) {
-    if (!state.output) return;
     const data = e.data;
     if (!data || data.length === 0) return;
 
     // Filter out Active Sensing (0xFE)
     if (data.length === 1 && data[0] === 0xFE) return;
 
+    // Input activity indicator – independent of the output state
     inputActivity.classList.add('active');
     if (activityTimer) clearTimeout(activityTimer);
     activityTimer = setTimeout(() => {
       inputActivity.classList.remove('active');
     }, 80);
 
+    if (!state.output) return;
     try {
       state.output.send(data);
     } catch (err) {
@@ -1289,25 +1214,31 @@
     } else {
       if (state.progBuffer.length >= 3) return;
     }
+    setLcdMessage('');
     state.progBuffer += d;
     updateLcd();
   }
 
   function handleSeparator() {
     if (state.progBuffer !== '' && !state.progBuffer.includes('/')) {
+      setLcdMessage('');
       state.progBuffer += '/';
       updateLcd();
     }
   }
 
   function handleBackspace() {
+    setLcdMessage('');
     state.progBuffer = state.progBuffer.slice(0, -1);
     updateLcd();
   }
 
   function handleEnter() {
     const text = state.progBuffer;
-    if (!text) return;
+    if (!text) {
+      log('-- nothing to send');
+      return;
+    }
 
     let bank = null, prog = null;
     if (text.includes('/')) {
@@ -1332,15 +1263,22 @@
       return;
     }
 
+    if (!state.output) {
+      setLcdMessage('ERROR: no MIDI output connected');
+      log('!! no MIDI output selected', 'err');
+      return;
+    }
+
     if (bank !== null) {
-      bankSelect(bank);
-      programChange(prog);
-      setLcdMessage('Bank ' + bank + ' / Prog ' + prog);
-      log('>> Bank ' + bank + ' / Program ' + prog, 'send');
+      if (bankSelect(bank) && programChange(prog)) {
+        setLcdMessage('Bank ' + bank + ' / Prog ' + prog);
+        log('>> Bank ' + bank + ' / Program ' + prog, 'send');
+      }
     } else {
-      programChange(prog);
-      setLcdMessage('Program ' + prog);
-      log('>> Program ' + prog, 'send');
+      if (programChange(prog)) {
+        setLcdMessage('Program ' + prog);
+        log('>> Program ' + prog, 'send');
+      }
     }
     state.progBuffer = '';
     updateLcd();
@@ -1349,6 +1287,7 @@
   function handleKey(key) {
     if (key === 'esc' || key === 'escape') {
       state.progBuffer = '';
+      setLcdMessage('');
       updateLcd();
       log('-- Input cleared.');
       return;
@@ -1410,7 +1349,7 @@
     });
   });
 
-  // ---------- Function keys (mouse / touch) ----------
+  // ---------- Function keys ----------
   document.querySelectorAll('.nav-btn').forEach(btn => {
     const note = parseInt(btn.dataset.note, 10);
     let isDown = false;
@@ -1457,8 +1396,9 @@
     state.volume = v;
     if (!fromSlider) volSlider.value = v;
     volValue.textContent = v;
-    setMasterVolume(v);
-    log('-- ' + (isMuted ? 'Volume = 0 (muted)' : 'Volume = ' + v));
+    if (setMasterVolume(v)) {
+      log('-- ' + (isMuted ? 'Volume = 0 (muted)' : 'Volume = ' + v));
+    }
   }
 
   volSlider.addEventListener('input', () => {
@@ -1506,31 +1446,24 @@
   });
 
   // ---------- Device enumeration ----------
-  // Rules for both dropdowns:
-  //   - Build every option first, WITHOUT any selection.
-  //   - Then set exactly ONE option as selected (never more than one).
-  //   - Priority for MIDI OUT: current UI value > saved value > auto-match (Pi) > first
-  //   - Priority for MIDI IN:  current UI value > saved value > "off"
-  // This prevents the browser from disagreeing about which option is really chosen.
-
   function refreshOutputList() {
     if (!state.midiAccess) return;
 
     const outputs = Array.from(state.midiAccess.outputs.values());
-    const previousId = deviceSelect.value;                     // what the user currently sees
+    const previousId = deviceSelect.value;
     const savedId = localStorage.getItem('dreamdexed.outputId');
 
     deviceSelect.innerHTML = '';
 
     if (outputs.length === 0) {
       const opt = document.createElement('option');
+      opt.value = '';
       opt.textContent = '(no MIDI outputs)';
       opt.disabled = true;
       deviceSelect.appendChild(opt);
       return;
     }
 
-    // 1. Build all options without any selection
     outputs.forEach((out, i) => {
       const opt = document.createElement('option');
       opt.value = out.id;
@@ -1538,7 +1471,6 @@
       deviceSelect.appendChild(opt);
     });
 
-    // 2. Pick exactly ONE option
     let desiredId = null;
     if (previousId && outputs.some(o => o.id === previousId)) {
       desiredId = previousId;
@@ -1573,7 +1505,6 @@
       inputSelect.appendChild(opt);
     });
 
-    // Default is "off". Only restore a previously used selection.
     let desiredId = '';
     if (previousId && inputs.some(o => o.id === previousId)) {
       desiredId = previousId;
@@ -1597,17 +1528,26 @@
     if (inp) localStorage.setItem('dreamdexed.inputId', id);
   });
 
+  // ---------- MIDI Out: selection immediately connects ----------
   function connectToSelected() {
     if (!state.midiAccess) return;
     const id = deviceSelect.value;
+    if (!id) {
+      state.output = null;
+      return;
+    }
     const out = state.midiAccess.outputs.get(id);
     if (!out) {
       log('!! output not found: ' + id, 'err');
+      state.output = null;
       return;
     }
     state.output = out;
     log('>> connected to ' + (out.name || out.id), 'send');
     localStorage.setItem('dreamdexed.outputId', id);
+
+    // Push the current volume to the freshly connected device (silent)
+    setMasterVolume(state.volume, true);
 
     const inId = inputSelect.value;
     if (inId) {
@@ -1616,7 +1556,7 @@
     }
   }
 
-  connectBtn.addEventListener('click', connectToSelected);
+  deviceSelect.addEventListener('change', connectToSelected);
 
   // ---------- MIDI init ----------
   async function initMidi() {
@@ -1639,16 +1579,19 @@
       refreshOutputList();
       refreshInputList();
 
-      // Bind input if one is preselected
       if (inputSelect.value) {
         const inp = access.inputs.get(inputSelect.value);
         if (inp) bindInput(inp);
       }
 
       access.onstatechange = () => {
+        // Detect a disconnected output
+        if (state.output && !access.outputs.has(state.output.id)) {
+          log('!! output disconnected: ' + (state.output.name || state.output.id), 'err');
+          state.output = null;
+        }
         refreshOutputList();
         refreshInputList();
-        // Re-bind the input after re-enumeration
         if (inputSelect.value) {
           const inp = access.inputs.get(inputSelect.value);
           bindInput(inp || null);
@@ -1657,9 +1600,15 @@
         }
       };
 
-      // Auto-connect only when there is a valid selection
+      // Auto-connect on page load only when there is a saved match
+      // or a likely Pi device. No accidental connection to other gear.
       if (deviceSelect.value && access.outputs.has(deviceSelect.value)) {
-        connectToSelected();
+        const out = access.outputs.get(deviceSelect.value);
+        const savedId = localStorage.getItem('dreamdexed.outputId');
+        const isPi = /dreamdexed|minidexed|gadget/i.test(out.name || '');
+        if (deviceSelect.value === savedId || isPi) {
+          connectToSelected();
+        }
       }
 
     } catch (e) {
