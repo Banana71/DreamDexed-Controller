@@ -102,6 +102,7 @@
     align-items: center;
     gap: 8px;
     margin-bottom: 16px;
+    flex-wrap: wrap;
   }
 
   .brand-btn {
@@ -187,7 +188,9 @@
     text-shadow: none;
     margin-top: 4px;
     min-height: 14px;
-    white-space: pre;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-align: left;
   }
 
@@ -214,14 +217,9 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    font-family: 'Courier New', monospace;
     font-size: 10px;
     line-height: 15px;
     color: var(--oled-dim);
-    background: transparent;
-    border: none;
-    padding: 0;
-    box-shadow: none;
   }
   .oled .log .entry {
     white-space: nowrap;
@@ -527,9 +525,7 @@
     font-size: 14px;
     line-height: 1;
     cursor: pointer;
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.5),
-      0 2px 0 #000;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 0 #000;
   }
   .pdf-close:active {
     transform: translateY(2px);
@@ -544,6 +540,7 @@
     min-height: 0;
   }
 
+  /* ---------- Modal: User Manual ---------- */
   .modal-backdrop {
     display: none;
     position: fixed;
@@ -555,13 +552,12 @@
     padding: 24px 12px;
   }
   .modal-backdrop.open { display: flex; }
+
   .modal {
     background: linear-gradient(180deg, var(--body-mid), var(--body-dark));
     border: 3px solid var(--panel-edge);
     border-radius: 6px;
-    box-shadow:
-      0 0 0 1px #000,
-      0 12px 40px rgba(0,0,0,0.9);
+    box-shadow: 0 0 0 1px #000, 0 12px 40px rgba(0,0,0,0.9);
     width: 640px;
     max-width: 100%;
     max-height: 85vh;
@@ -569,6 +565,7 @@
     flex-direction: column;
     overflow: hidden;
   }
+
   .modal-header {
     display: flex;
     align-items: center;
@@ -586,6 +583,7 @@
     color: #e8e0d0;
     text-transform: uppercase;
   }
+
   .modal-close {
     background: linear-gradient(180deg, var(--key-light-top), var(--key-light));
     color: #1a1210;
@@ -598,14 +596,13 @@
     font-size: 14px;
     line-height: 1;
     cursor: pointer;
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.5),
-      0 2px 0 #000;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 0 #000;
   }
   .modal-close:active {
     transform: translateY(2px);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 0 #000;
   }
+
   .modal-body {
     padding: 18px 20px 22px 20px;
     overflow-y: auto;
@@ -653,10 +650,7 @@
     text-decoration: none;
     border-bottom: 1px dotted var(--lcd-dim);
   }
-  .modal-body a:hover {
-    color: #70ff90;
-    border-bottom-color: var(--lcd-text);
-  }
+  .modal-body a:hover { color: #70ff90; border-bottom-color: var(--lcd-text); }
   .modal-body .kv {
     display: grid;
     grid-template-columns: 160px 1fr;
@@ -682,6 +676,196 @@
     text-align: center;
     text-transform: uppercase;
   }
+
+  /* ---------- Quick Select modal ---------- */
+  .selector-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.82);
+    z-index: 1100;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 12px;
+  }
+  .selector-backdrop.open { display: flex; }
+
+  .selector {
+    background: linear-gradient(180deg, var(--body-mid), var(--body-dark));
+    border: 3px solid var(--panel-edge);
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px #000, 0 12px 40px rgba(0,0,0,0.9);
+    width: 720px;
+    max-width: 100%;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .selector-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 16px;
+    background: var(--lcd-bg);
+    border-bottom: 2px solid var(--panel-edge);
+    flex-shrink: 0;
+  }
+  .selector-title {
+    font-family: 'Doto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: var(--lcd-text);
+    text-shadow: 0 0 8px rgba(77,255,94,0.6);
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .selector-close {
+    background: linear-gradient(180deg, var(--key-light-top), var(--key-light));
+    color: #1a1210;
+    border: 1px solid #000;
+    border-radius: 3px;
+    width: 26px;
+    height: 26px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 0 #000;
+  }
+  .selector-close:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 0 #000;
+  }
+
+  .selector-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px 12px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--panel-edge);
+    flex-shrink: 0;
+  }
+  .bank-tab {
+    background: linear-gradient(180deg, var(--key-dark-top), var(--key-dark));
+    color: #e8e0d0;
+    border: 1px solid #000;
+    border-radius: 3px;
+    padding: 4px 9px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+  }
+  .bank-tab:hover { background: linear-gradient(180deg, #5a5048, #4a4038); }
+  .bank-tab.active {
+    background: linear-gradient(180deg, var(--key-light-top), var(--key-light));
+    color: #1a1210;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 1px 0 #000;
+  }
+
+  .selector-grid-wrap {
+    overflow-y: auto;
+    background: var(--panel);
+    flex: 1;
+    min-height: 0;
+  }
+  .selector-grid-wrap::-webkit-scrollbar { width: 10px; }
+  .selector-grid-wrap::-webkit-scrollbar-track { background: #0a0806; }
+  .selector-grid-wrap::-webkit-scrollbar-thumb {
+    background: #3a2820;
+    border-radius: 4px;
+  }
+
+  .selector-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(32, 18px);
+    gap: 2px 4px;
+    padding: 10px;
+  }
+
+  .perf-cell {
+    display: flex;
+    align-items: center;
+    height: 18px;
+    padding: 0 6px;
+    background: #0a0806;
+    border: 1px solid #2a2218;
+    border-radius: 2px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--label);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+    transition: background 0.05s, color 0.05s, border-color 0.05s;
+  }
+  .perf-cell:hover {
+    background: #1a1610;
+    color: #e8e0d0;
+    border-color: #5a4a38;
+  }
+  .perf-cell:active {
+    background: #1a1a10;
+  }
+  .perf-cell.active {
+    background: var(--lcd-bg);
+    color: var(--lcd-text);
+    border-color: var(--lcd-text);
+    box-shadow: inset 0 0 6px rgba(60,200,74,0.25), 0 0 6px rgba(60,200,74,0.35);
+  }
+
+  .selector-empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--muted, #8a7a68);
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .selector-empty strong {
+    display: block;
+    color: var(--accent-red);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .selector-empty code {
+    background: #0a0806;
+    color: var(--lcd-text);
+    padding: 1px 6px;
+    border-radius: 2px;
+    border: 1px solid #000;
+    font-size: 11px;
+  }
+
+  .selector-footer {
+    padding: 8px 16px;
+    background: var(--panel);
+    border-top: 1px solid #000;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #5a4a3a;
+    text-align: center;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
 </style>
 </head>
 <body>
@@ -696,6 +880,7 @@
     <a class="brand-btn" href="install.html">Install Guide</a>
     <button class="brand-btn" id="manual-btn">Manual</button>
     <button class="brand-btn" id="list-btn">Perflist.pdf</button>
+    <button class="brand-btn" id="selector-btn">Quick Select</button>
   </div>
 
   <div class="panel">
@@ -769,11 +954,11 @@
           <span class="label">Bank</span>
         </button>
         <button class="nav-btn" data-note="7">
-          <span class="arrow">－</span>
+          <span class="arrow">−</span>
           <span class="label">Pgm</span>
         </button>
         <button class="nav-btn" data-note="9">
-          <span class="arrow">－</span>
+          <span class="arrow">−</span>
           <span class="label">Bank</span>
         </button>
       </div>
@@ -793,6 +978,7 @@
   <iframe class="pdf-iframe" id="pdf-iframe" title="Performance List"></iframe>
 </div>
 
+<!-- Modal: User manual -->
 <div class="modal-backdrop" id="manual-backdrop">
   <div class="modal" role="dialog" aria-labelledby="manual-title">
     <div class="modal-header">
@@ -826,8 +1012,7 @@
       <h3>Connecting the Pi</h3>
       <p>
         Select the Raspberry Pi in the <b>MIDI OUT</b> dropdown. The
-        connection is established immediately.
-        The OLED log confirms with
+        connection is established immediately. The OLED log confirms with
         <code>&gt;&gt; connected to …</code>. Your selection is remembered
         for the next time.
       </p>
@@ -867,6 +1052,46 @@
         </li>
       </ul>
 
+      <h3>Quick Select</h3>
+      <p>
+        The <b>Quick Select</b> button opens a browsable list of all
+        performances, grouped by bank. It reads <code>perflist.js</code>
+        next to <code>index.html</code>. This file is produced by
+        <code>perfscan.html</code> and works directly from disk as well as
+        from a web server.
+      </p>
+      <ul>
+        <li>
+          <b>Bank tabs</b> across the top switch between the banks found in
+          the performance list (e.g. <code>001 Seed</code>,
+          <code>002 Greenhouse</code>, …).
+        </li>
+        <li>
+          The <b>title bar</b> shows the currently visible bank, formatted as
+          <code>BBB – BankName</code>.
+        </li>
+        <li>
+          Performances are laid out <b>column by column</b>: program 1–32 in
+          the first column, 33–64 in the second, and so on. With a full bank
+          that is four columns of 32 rows.
+        </li>
+        <li>
+          A <b>double-click</b> on a cell sends a Bank Select and a Program
+          Change on the current <b>Prog Ch</b> – the performance is loaded
+          on the Pi right away.
+        </li>
+        <li>
+          The performance currently loaded is highlighted with a green
+          frame. Long names are truncated with <code>…</code>; hover to see
+          the full name in a tooltip.
+        </li>
+      </ul>
+      <p>
+        If the performance list cannot be loaded at all, Quick Select shows
+        a short hint instead of the list. Make sure
+        <code>perflist.js</code> sits next to <code>index.html</code>.
+      </p>
+
       <h3>Stepping through banks and programs</h3>
       <div class="kv">
         <span class="k">PGM + / −</span>
@@ -876,10 +1101,9 @@
       </div>
       <p>
         Each press sends a short MIDI message to the Pi, which advances to
-        the next or previous program. Use this when you want to audition
-        sounds in order – or when you do not yet know the exact number.
-        The LCD status line is cleared after each press, because from that
-        moment on the Pi is the source of truth for what is selected.
+        the next or previous program. The LCD status line is cleared after
+        each press, because from that moment on the Pi is the source of
+        truth for what is selected.
       </p>
 
       <h3>Volume</h3>
@@ -894,29 +1118,9 @@
 
       <h3>The Performance List (Perflist.pdf)</h3>
       <p>
-        The <b>PERFLIST.PDF</b> button opens the Performance List alongside
-        the Controller. This is your reference for finding sounds.
-      </p>
-      <ul>
-        <li>
-          The list is organized by <b>bank</b> and <b>program number</b> –
-          the same two numbers you type on the numpad.
-        </li>
-        <li>
-          <b>Bank 1</b> contains a curated selection of favourites chosen
-          for this project – a good place to start exploring.
-        </li>
-        <li>
-          <b>Banks 2 and up</b> are the original Soundplantage banks,
-          unchanged.
-        </li>
-      </ul>
-      <p>
-        To select a sound from the list, type its bank and program number
-        exactly as shown (for example <code>2/87</code>) and press ENTER.
-        The Controller shifts to the left while the PDF is open, so both fit
-        on screen. Click the button again, or use the ✕ in the PDF header,
-        to close it.
+        The <b>PERFLIST.PDF</b> button opens the printed Performance List
+        alongside the Controller. It is your reference for the sound names
+        as originally supplied.
       </p>
 
       <h3>Typing on the PC keyboard</h3>
@@ -935,7 +1139,7 @@
         <span class="k">Backspace</span>
         <span class="v">Delete last character</span>
         <span class="k">Escape</span>
-        <span class="v">Clear current input</span>
+        <span class="v">Clear current input / close dialogs</span>
         <span class="k">+</span>
         <span class="v">PGM + &nbsp;(program up)</span>
         <span class="k">−</span>
@@ -990,6 +1194,10 @@
           use the online version instead.
         </li>
         <li>
+          Quick Select shows "could not load performance list" – make sure
+          <code>perflist.js</code> sits next to <code>index.html</code>.
+        </li>
+        <li>
           Other errors – the Install Guide's troubleshooting section covers
           the setup side.
         </li>
@@ -1002,6 +1210,26 @@
   </div>
 </div>
 
+<!-- Modal: Quick Select -->
+<div class="selector-backdrop" id="selector-backdrop">
+  <div class="selector" role="dialog" aria-labelledby="selector-title">
+    <div class="selector-header">
+      <span class="selector-title" id="selector-title">—</span>
+      <button class="selector-close" id="selector-close" aria-label="Close">✕</button>
+    </div>
+    <div class="selector-tabs" id="selector-tabs"></div>
+    <div class="selector-grid-wrap" id="selector-grid-wrap">
+      <div class="selector-grid" id="selector-grid"></div>
+    </div>
+    <div class="selector-footer">
+      Double-click a cell to load the performance on the Pi
+    </div>
+  </div>
+</div>
+
+<!-- Optional: embedded performance list.
+     Loads silently if the file is missing, no error in that case. -->
+<script src="perflist.js" onerror="window.__perflistMissing = true;"></script>
 <script>
 (function () {
   'use strict';
@@ -1009,6 +1237,11 @@
   const DEFAULT_VOLUME = 64;
   const DEFAULT_PROG_CHANNEL = 10;
   const PDF_URL = 'Performance%20List.pdf#view=Fit';
+  const PERFLIST_URL = 'perflist.json';
+
+  // Quick Select layout: fixed number of columns, rows computed from content
+  const SELECTOR_COLS = 4;
+  const SELECTOR_ROW_HEIGHT = 18; // px, must match .perf-cell height
 
   const state = {
     midiAccess: null,
@@ -1017,6 +1250,17 @@
     progChannel: DEFAULT_PROG_CHANNEL,
     progBuffer: '',
     volume: DEFAULT_VOLUME,
+  };
+
+  const currentPerf = { bank: null, program: null };
+
+  const perflist = {
+    loaded: false,
+    loading: false,
+    error: null,
+    banks: [],
+    performancesByBank: new Map(),
+    activeBank: null,
   };
 
   let isMuted = false;
@@ -1039,6 +1283,13 @@
   const listBtn = $('list-btn');
   const pdfClose = $('pdf-close');
   const pdfIframe = $('pdf-iframe');
+  const selectorBtn = $('selector-btn');
+  const selectorBackdrop = $('selector-backdrop');
+  const selectorClose = $('selector-close');
+  const selectorTitle = $('selector-title');
+  const selectorTabs = $('selector-tabs');
+  const selectorGrid = $('selector-grid');
+  const selectorGridWrap = $('selector-grid-wrap');
 
   // ---------- Nav button mapping ----------
   const NAV_LABELS = { 6: 'PGM +', 7: 'PGM -', 8: 'BANK +', 9: 'BANK -' };
@@ -1062,6 +1313,8 @@
     const btn = navButtonFor(note);
     if (btn) btn.classList.add('pressed');
     setLcdMessage('');
+    currentPerf.bank = null;
+    currentPerf.program = null;
     sendNoteOn(note, 1, NAV_LABELS[note]);
   }
 
@@ -1100,7 +1353,7 @@
   });
   pdfClose.addEventListener('click', closePdf);
 
-  // ---------- Modal ----------
+  // ---------- Manual modal ----------
   function openManual() { manualBackdrop.classList.add('open'); }
   function closeManual() { manualBackdrop.classList.remove('open'); }
   manualBtn.addEventListener('click', openManual);
@@ -1109,7 +1362,264 @@
     if (e.target === manualBackdrop) closeManual();
   });
 
-  // ---------- Logging – max 5 lines ----------
+  // ---------- Quick Select modal ----------
+  function openSelector() {
+    selectorBackdrop.classList.add('open');
+    selectorBtn.classList.add('active');
+    if (!perflist.loaded && !perflist.loading) {
+      loadPerflist();
+    } else if (perflist.loaded) {
+      ensureActiveBank();
+      renderSelector();
+    }
+  }
+
+  function closeSelector() {
+    selectorBackdrop.classList.remove('open');
+    selectorBtn.classList.remove('active');
+  }
+
+  selectorBtn.addEventListener('click', () => {
+    if (selectorBackdrop.classList.contains('open')) {
+      closeSelector();
+    } else {
+      openSelector();
+    }
+  });
+  selectorClose.addEventListener('click', closeSelector);
+  selectorBackdrop.addEventListener('click', (e) => {
+    if (e.target === selectorBackdrop) closeSelector();
+  });
+
+  // ---------- Perflist loading ----------
+  async function loadPerflist() {
+    perflist.loading = true;
+    perflist.error = null;
+    renderSelector();
+
+    try {
+      let data;
+      if (window.DREAMDEXED_PERFLIST &&
+          Array.isArray(window.DREAMDEXED_PERFLIST.banks) &&
+          Array.isArray(window.DREAMDEXED_PERFLIST.performances)) {
+        data = window.DREAMDEXED_PERFLIST;
+        log('-- using embedded perflist.js', 'hint');
+      } else {
+        const res = await fetch(PERFLIST_URL, { cache: 'no-cache' });
+        if (!res.ok) {
+          throw new Error('HTTP ' + res.status);
+        }
+        data = await res.json();
+      }
+
+      if (!data || !Array.isArray(data.banks) || !Array.isArray(data.performances)) {
+        throw new Error('unexpected format');
+      }
+
+      perflist.banks = data.banks
+        .map(b => ({ bank: Number(b.bank), name: String(b.name || '') }))
+        .filter(b => !isNaN(b.bank))
+        .sort((a, b) => a.bank - b.bank);
+
+      perflist.performancesByBank = new Map();
+      for (const line of data.performances) {
+        const parsed = parsePerfLine(line);
+        if (!parsed) continue;
+        if (!perflist.performancesByBank.has(parsed.bank)) {
+          perflist.performancesByBank.set(parsed.bank, []);
+        }
+        perflist.performancesByBank.get(parsed.bank).push(parsed);
+      }
+
+      for (const list of perflist.performancesByBank.values()) {
+        list.sort((a, b) => a.program - b.program);
+      }
+
+      perflist.loaded = true;
+      perflist.loading = false;
+
+      ensureActiveBank();
+      renderSelector();
+      log('>> perflist loaded: ' + countTotalPerformances() + ' entries', 'send');
+    } catch (err) {
+      perflist.loading = false;
+      perflist.loaded = false;
+      perflist.error = err.message || String(err);
+      renderSelector();
+      log('!! perflist load failed: ' + perflist.error, 'err');
+    }
+  }
+
+  function countTotalPerformances() {
+    let n = 0;
+    for (const list of perflist.performancesByBank.values()) n += list.length;
+    return n;
+  }
+
+  function parsePerfLine(line) {
+    if (typeof line !== 'string') return null;
+    const parts = line.split(',');
+    if (parts.length < 3) return null;
+    const bank = parseInt(parts[0].trim(), 10);
+    const program = parseInt(parts[1].trim(), 10);
+    const name = parts.slice(2).join(',').trim();
+    if (isNaN(bank) || isNaN(program)) return null;
+    return { bank, program, name };
+  }
+
+  function ensureActiveBank() {
+    if (perflist.banks.length === 0) {
+      perflist.activeBank = null;
+      return;
+    }
+    if (currentPerf.bank !== null &&
+        perflist.banks.some(b => b.bank === currentPerf.bank)) {
+      perflist.activeBank = currentPerf.bank;
+      return;
+    }
+    if (perflist.activeBank !== null &&
+        perflist.banks.some(b => b.bank === perflist.activeBank)) {
+      return;
+    }
+    perflist.activeBank = perflist.banks[0].bank;
+  }
+
+  // ---------- Quick Select rendering ----------
+  function renderSelector() {
+    if (perflist.loading) {
+      selectorTitle.textContent = 'Loading…';
+      selectorTabs.innerHTML = '';
+      selectorGrid.style.gridTemplateColumns = '1fr';
+      selectorGrid.style.gridTemplateRows = '';
+      selectorGrid.innerHTML =
+        '<div class="selector-empty">Reading performance list…</div>';
+      return;
+    }
+
+    if (perflist.error) {
+      selectorTitle.textContent = 'Not available';
+      selectorTabs.innerHTML = '';
+      selectorGrid.style.gridTemplateColumns = '1fr';
+      selectorGrid.style.gridTemplateRows = '';
+      selectorGrid.innerHTML =
+        '<div class="selector-empty">' +
+        '<strong>Could not load performance list</strong>' +
+        escapeHtml(perflist.error) + '<br><br>' +
+        'Make sure either <code>perflist.js</code> or <code>perflist.json</code> ' +
+        'sits next to <code>index.html</code>.' +
+        '</div>';
+      return;
+    }
+
+    if (!perflist.loaded) {
+      selectorTitle.textContent = '—';
+      selectorTabs.innerHTML = '';
+      selectorGrid.style.gridTemplateColumns = '1fr';
+      selectorGrid.style.gridTemplateRows = '';
+      selectorGrid.innerHTML =
+        '<div class="selector-empty">Press <strong>Quick Select</strong> to load the list.</div>';
+      return;
+    }
+
+    // Title
+    const activeBankObj = perflist.banks.find(b => b.bank === perflist.activeBank);
+    if (activeBankObj) {
+      selectorTitle.textContent =
+        String(activeBankObj.bank).padStart(3, '0') + ' – ' + activeBankObj.name;
+    } else {
+      selectorTitle.textContent = '—';
+    }
+
+    // Tabs
+    selectorTabs.innerHTML = '';
+    for (const b of perflist.banks) {
+      const tab = document.createElement('button');
+      tab.className = 'bank-tab' + (b.bank === perflist.activeBank ? ' active' : '');
+      tab.textContent = String(b.bank).padStart(3, '0') + ' ' + b.name;
+      tab.addEventListener('click', () => {
+        perflist.activeBank = b.bank;
+        renderSelector();
+        selectorGridWrap.scrollTop = 0;
+      });
+      selectorTabs.appendChild(tab);
+    }
+
+    // Grid
+    selectorGrid.innerHTML = '';
+    const list = perflist.performancesByBank.get(perflist.activeBank) || [];
+
+    if (list.length === 0) {
+      selectorGrid.style.gridTemplateColumns = '1fr';
+      selectorGrid.style.gridTemplateRows = '';
+      selectorGrid.innerHTML =
+        '<div class="selector-empty">No performances in this bank.</div>';
+      return;
+    }
+
+    // Column-wise layout: fill down column 1 first, then column 2, ...
+    const rowsPerCol = Math.ceil(list.length / SELECTOR_COLS);
+    selectorGrid.style.gridTemplateColumns = 'repeat(' + SELECTOR_COLS + ', 1fr)';
+    selectorGrid.style.gridTemplateRows =
+      'repeat(' + rowsPerCol + ', ' + SELECTOR_ROW_HEIGHT + 'px)';
+    selectorGrid.style.gridAutoFlow = 'column';
+
+    for (const p of list) {
+      const cell = document.createElement('div');
+      cell.className = 'perf-cell';
+
+      const progLabel = String(p.program).padStart(3, '0');
+      const displayName = truncate(p.name, 14);
+      cell.textContent = progLabel + ' – ' + displayName;
+      cell.title = progLabel + ' – ' + p.name;
+
+      if (currentPerf.bank === p.bank && currentPerf.program === p.program) {
+        cell.classList.add('active');
+      }
+
+      cell.addEventListener('dblclick', () => {
+        applyPerformance(p.bank, p.program, p.name);
+        renderSelector();
+      });
+
+      selectorGrid.appendChild(cell);
+    }
+  }
+
+  function truncate(s, max) {
+    if (typeof s !== 'string') return '';
+    if (s.length <= max) return s;
+    return s.slice(0, max - 1) + '…';
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  // ---------- Apply performance (bank + program) ----------
+  function applyPerformance(bank, program, displayName) {
+    if (!state.output) {
+      setLcdMessage('ERROR: no MIDI output connected');
+      log('!! no MIDI output selected', 'err');
+      return false;
+    }
+    const okBank = bankSelect(bank);
+    const okProg = programChange(program);
+    if (okBank && okProg) {
+      currentPerf.bank = bank;
+      currentPerf.program = program;
+      setLcdMessage('Bank ' + bank + ' / Prog ' + program +
+                    (displayName ? ' · ' + displayName : ''));
+      log('>> Bank ' + bank + ' / Program ' + program +
+          (displayName ? ' · ' + displayName : ''), 'send');
+      return true;
+    }
+    return false;
+  }
+
+  // ---------- Logging ----------
   function log(text, cls) {
     const entry = document.createElement('div');
     entry.className = 'entry' + (cls ? ' ' + cls : '');
@@ -1173,15 +1683,13 @@
     return sendBytes([0x80 | ch, note & 0x7F, 0x00], true);
   }
 
-  // ---------- MIDI In forwarding (1:1 pass-through) ----------
+  // ---------- MIDI In forwarding ----------
   function handleIncoming(e) {
     const data = e.data;
     if (!data || data.length === 0) return;
 
-    // Filter out Active Sensing (0xFE)
     if (data.length === 1 && data[0] === 0xFE) return;
 
-    // Input activity indicator – independent of the output state
     inputActivity.classList.add('active');
     if (activityTimer) clearTimeout(activityTimer);
     activityTimer = setTimeout(() => {
@@ -1270,18 +1778,35 @@
     }
 
     if (bank !== null) {
+      const displayName = lookupName(bank, prog);
       if (bankSelect(bank) && programChange(prog)) {
-        setLcdMessage('Bank ' + bank + ' / Prog ' + prog);
-        log('>> Bank ' + bank + ' / Program ' + prog, 'send');
+        currentPerf.bank = bank;
+        currentPerf.program = prog;
+        setLcdMessage('Bank ' + bank + ' / Prog ' + prog +
+                      (displayName ? ' · ' + displayName : ''));
+        log('>> Bank ' + bank + ' / Program ' + prog +
+            (displayName ? ' · ' + displayName : ''), 'send');
       }
     } else {
+      const displayName = lookupName(currentPerf.bank, prog);
       if (programChange(prog)) {
-        setLcdMessage('Program ' + prog);
-        log('>> Program ' + prog, 'send');
+        currentPerf.program = prog;
+        setLcdMessage('Program ' + prog +
+                      (displayName ? ' · ' + displayName : ''));
+        log('>> Program ' + prog +
+            (displayName ? ' · ' + displayName : ''), 'send');
       }
     }
     state.progBuffer = '';
     updateLcd();
+  }
+
+  function lookupName(bank, program) {
+    if (!perflist.loaded || bank === null) return '';
+    const list = perflist.performancesByBank.get(bank);
+    if (!list) return '';
+    const hit = list.find(p => p.program === program);
+    return hit ? hit.name : '';
   }
 
   function handleKey(key) {
@@ -1304,6 +1829,10 @@
 
   // ---------- Keyboard ----------
   document.addEventListener('keydown', (e) => {
+    if (selectorBackdrop.classList.contains('open')) {
+      if (e.key === 'Escape') { closeSelector(); e.preventDefault(); }
+      return;
+    }
     if (manualBackdrop.classList.contains('open')) {
       if (e.key === 'Escape') { closeManual(); e.preventDefault(); }
       return;
@@ -1359,6 +1888,8 @@
       isDown = true;
       btn.classList.add('pressed');
       setLcdMessage('');
+      currentPerf.bank = null;
+      currentPerf.program = null;
       sendNoteOn(note, 1, NAV_LABELS[note]);
     };
 
@@ -1546,7 +2077,6 @@
     log('>> connected to ' + (out.name || out.id), 'send');
     localStorage.setItem('dreamdexed.outputId', id);
 
-    // Push the current volume to the freshly connected device (silent)
     setMasterVolume(state.volume, true);
 
     const inId = inputSelect.value;
@@ -1585,7 +2115,6 @@
       }
 
       access.onstatechange = () => {
-        // Detect a disconnected output
         if (state.output && !access.outputs.has(state.output.id)) {
           log('!! output disconnected: ' + (state.output.name || state.output.id), 'err');
           state.output = null;
@@ -1600,8 +2129,6 @@
         }
       };
 
-      // Auto-connect on page load only when there is a saved match
-      // or a likely Pi device. No accidental connection to other gear.
       if (deviceSelect.value && access.outputs.has(deviceSelect.value)) {
         const out = access.outputs.get(deviceSelect.value);
         const savedId = localStorage.getItem('dreamdexed.outputId');

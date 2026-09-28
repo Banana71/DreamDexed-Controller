@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DreamDexed Perfscan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@900&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Doto';
+    src: url('doto-latin-900-normal.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --body-dark: #2b1d15;
+    --body-mid: #3a2820;
+    --panel: #1a1210;
+    --panel-edge: #0a0806;
+    --lcd-bg: #0a1a0d;
+    --lcd-text: #3cc84a;
+    --lcd-dim: #2a5a2d;
+    --key-light: #d0c8b8;
+    --key-light-top: #e8e0d0;
+    --key-dark: #4a4038;
+    --key-dark-top: #5a5048;
+    --label: #c8b8a0;
+    --accent-red: #c83030;
+    --muted: #8a7a68;
+    --oled-bg: #000a18;
+    --oled-edge: #041018;
+    --oled-dim: #1e5a8a;
+    --oled-text: #6ecfff;
+    --oled-err: #ff5566;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #14100c;
+    font-family: 'Courier New', 'Consolas', monospace;
+    color: var(--label);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 24px 12px;
+    line-height: 1.6;
+  }
+
+  .page {
+    background: linear-gradient(180deg, var(--body-mid), var(--body-dark));
+    border: 3px solid var(--panel-edge);
+    border-radius: 6px;
+    padding: 24px;
+    box-shadow:
+      0 0 0 1px #000,
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      0 12px 40px rgba(0,0,0,0.8);
+    width: 820px;
+    max-width: 100%;
+  }
+
+  .brand {
+    position: relative;
+    padding: 0 4px 14px 4px;
+    border-bottom: 1px solid #000;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .brand .logo-sm {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 6px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .brand .logo-lg {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 30px;
+    letter-spacing: 5px;
+    color: #e8e0d0;
+    text-shadow: 0 1px 0 #000, 0 0 12px rgba(77,255,94,0.10);
+    line-height: 1;
+  }
+  .brand .sub {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #5a4a3a;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .brand .top-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .brand-btn {
+    background: linear-gradient(180deg, var(--key-dark-top), var(--key-dark));
+    color: #e8e0d0;
+    border: 1px solid #000;
+    border-radius: 3px;
+    padding: 6px 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.15),
+      0 2px 0 #000,
+      0 3px 6px rgba(0,0,0,0.6);
+    transition: transform 0.05s, box-shadow 0.05s;
+  }
+  .brand-btn:hover { background: linear-gradient(180deg, #5a5048, #4a4038); }
+  .brand-btn:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 0 0 #000;
+  }
+
+  .intro {
+    background: var(--lcd-bg);
+    border: 2px solid var(--lcd-dim);
+    border-left: 6px solid var(--lcd-text);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    box-shadow:
+      inset 0 0 22px rgba(60,200,74,0.08),
+      0 0 14px rgba(60,200,74,0.18);
+  }
+  .intro .intro-title {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--lcd-text);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    text-shadow: 0 0 6px rgba(77,255,94,0.5);
+  }
+  .intro p {
+    color: #b8d8b8;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .intro p:last-child { margin-bottom: 0; }
+  .intro strong { color: #d8f0d8; }
+  .intro code {
+    font-family: 'Courier New', monospace;
+    background: #050a05;
+    color: var(--lcd-text);
+    padding: 1px 6px;
+    border-radius: 2px;
+    border: 1px solid #000;
+    font-size: 11px;
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 2px solid var(--panel-edge);
+    border-radius: 4px;
+    padding: 18px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    margin-bottom: 16px;
+  }
+
+  .big-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: linear-gradient(180deg, var(--key-light-top), var(--key-light));
+    color: #1a1210;
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 16px 20px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.5),
+      0 2px 0 #000,
+      0 3px 6px rgba(0,0,0,0.6);
+    transition: transform 0.05s, box-shadow 0.05s;
+    user-select: none;
+  }
+  .big-btn:hover { background: linear-gradient(180deg, #f0e8d8, var(--key-light-top)); }
+  .big-btn:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 0 0 #000;
+  }
+
+  .oled {
+    background: var(--oled-bg);
+    border: 2px solid var(--oled-edge);
+    border-radius: 3px;
+    padding: 8px 12px;
+    margin-top: 14px;
+    box-shadow:
+      inset 0 0 24px rgba(0,150,255,0.10),
+      inset 0 1px 0 rgba(120,200,255,0.06),
+      0 0 10px rgba(0,150,255,0.20);
+    font-family: 'Courier New', monospace;
+    color: var(--oled-dim);
+  }
+  .oled .log {
+    height: 168px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: block;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    line-height: 14px;
+    color: var(--oled-dim);
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+  }
+  .oled .log::-webkit-scrollbar { width: 6px; }
+  .oled .log::-webkit-scrollbar-track { background: #000508; }
+  .oled .log::-webkit-scrollbar-thumb {
+    background: #1e3a5a;
+    border-radius: 3px;
+  }
+
+  .oled .log .entry {
+    display: block;
+    height: 14px;
+    line-height: 14px;
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: clip;
+    font-size: 11px;
+    color: var(--oled-dim);
+  }
+  .oled .log .entry.send {
+    color: var(--oled-text);
+    text-shadow: 0 0 4px rgba(110,207,255,0.5);
+  }
+  .oled .log .entry.err {
+    color: var(--oled-err);
+    text-shadow: 0 0 4px rgba(255,85,102,0.5);
+  }
+  .oled .log .entry.hint {
+    color: #4a7a9a;
+  }
+  .oled .log .entry.ok {
+    color: #3cc84a;
+    text-shadow: 0 0 4px rgba(60,200,74,0.4);
+  }
+
+  .stats {
+    margin-top: 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--lcd-text);
+    text-shadow: 0 0 4px rgba(77,255,94,0.4);
+    min-height: 16px;
+    letter-spacing: 1px;
+  }
+
+  .preview {
+    margin-top: 12px;
+    background: var(--lcd-bg);
+    border: 2px solid #050a05;
+    border-radius: 3px;
+    padding: 10px 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--lcd-text);
+    text-shadow: 0 0 4px rgba(77,255,94,0.4);
+    max-height: 280px;
+    overflow-y: auto;
+    white-space: pre;
+    display: none;
+  }
+  .preview.visible { display: block; }
+  .preview .more {
+    color: var(--lcd-dim);
+    text-shadow: none;
+    font-style: italic;
+  }
+  .preview .section-title {
+    color: #90ffb0;
+    font-weight: bold;
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .actions .btn {
+    flex: 1;
+    background: linear-gradient(180deg, var(--key-dark-top), var(--key-dark));
+    color: #e8e0d0;
+    border: 1px solid #000;
+    border-radius: 3px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 11px;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.15),
+      0 2px 0 #000,
+      0 3px 6px rgba(0,0,0,0.6);
+    transition: transform 0.05s, box-shadow 0.05s;
+  }
+  .actions .btn:hover { background: linear-gradient(180deg, #5a5048, #4a4038); }
+  .actions .btn:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 0 0 #000;
+  }
+  .actions .btn.primary {
+    background: linear-gradient(180deg, var(--key-light-top), var(--key-light));
+    color: #1a1210;
+  }
+  .actions .btn.primary:hover { background: linear-gradient(180deg, #f0e8d8, var(--key-light-top)); }
+  .actions .btn[disabled] {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .out-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #0a0806;
+    border: 1px solid #000;
+    border-radius: 3px;
+  }
+  .out-row .out-label {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .out-row .out-value {
+    color: var(--muted);
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    flex: 1;
+    min-width: 0;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .out-row .out-value.set {
+    color: var(--lcd-text);
+    text-shadow: 0 0 4px rgba(77,255,94,0.4);
+  }
+  .out-row .btn-sm {
+    background: linear-gradient(180deg, var(--key-dark-top), var(--key-dark));
+    color: #e8e0d0;
+    border: 1px solid #000;
+    border-radius: 3px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 10px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.15),
+      0 2px 0 #000;
+    transition: transform 0.05s, box-shadow 0.05s;
+  }
+  .out-row .btn-sm:hover { background: linear-gradient(180deg, #5a5048, #4a4038); }
+  .out-row .btn-sm:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 0 0 #000;
+  }
+
+  .footer {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #000;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #5a4a3a;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1.8;
+  }
+  .footer a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px dotted #5a4a3a;
+  }
+  .footer a:hover { color: var(--lcd-text); }
+
+  .warn-note {
+    background: #2a0c0c;
+    border: 2px solid var(--accent-red);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #ff9090;
+    letter-spacing: 1px;
+    display: none;
+    line-height: 1.6;
+  }
+  .warn-note.visible { display: block; }
+  .warn-note strong {
+    color: #ff6060;
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 11px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="brand">
+    <div class="top-actions">
+      <a class="brand-btn" href="index.html">← Controller</a>
+    </div>
+    <div class="logo-sm">miniDexed / DreamDexed</div>
+    <div class="logo-lg">Perfscan</div>
+    <div class="sub">Build perflist.js from your SD card · by SOUNDPLANTAGE.COM</div>
+  </div>
+
+  <div class="intro">
+    <div class="intro-title">What this does</div>
+    <p>
+      Point this tool at your <strong>SD card</strong>. It finds the
+      <code>performance/</code> folder, scans every bank folder, and writes
+      one file next to <code>index.html</code>:
+    </p>
+    <p>
+      <strong>perflist.js</strong> – loaded directly by the Controller.
+      Works even when <code>index.html</code> is opened from disk
+      (<code>file://</code>), no local server needed.
+    </p>
+    <p>
+      The file contains two sections: <strong>banks</strong> with number and
+      name, and <strong>performances</strong> with one line per performance,
+      e.g. <code>"004, 012, Legend'83"</code>.
+    </p>
+    <p>
+      Set an output folder once and every subsequent save lands there
+      directly – no dialog. <strong>Nothing is uploaded.</strong>
+    </p>
+  </div>
+
+  <div class="panel">
+
+    <input type="file" id="folder-input" webkitdirectory directory multiple hidden>
+
+    <label for="folder-input" class="big-btn" id="pick-label">
+      📁 Select SD-Card folder
+    </label>
+
+    <div class="oled">
+      <div class="log" id="log"></div>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="preview" id="preview"></div>
+
+    <div class="actions">
+      <button class="btn primary" id="save-btn" disabled>💾 Save perflist.js</button>
+      <button class="btn" id="copy-btn" disabled>📋 Copy data to clipboard</button>
+    </div>
+
+    <div class="out-row" id="out-row" style="display: none;">
+      <span class="out-label">Output</span>
+      <span class="out-value" id="out-value">(not set – Save As dialog)</span>
+      <button class="btn-sm" id="set-out-btn">Set folder</button>
+      <button class="btn-sm" id="clear-out-btn" title="Forget folder">✕</button>
+    </div>
+
+    <div class="warn-note" id="warn-note"></div>
+  </div>
+
+  <div class="footer">
+    DreamDexed Perfscan · Browser Edition · SOUNDPLANTAGE.COM<br>
+    Based on MiniDexed by probonopd, licensed under the GPL.
+  </div>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  const $ = (id) => document.getElementById(id);
+  const logEl = $('log');
+  const statsEl = $('stats');
+  const previewEl = $('preview');
+  const folderInput = $('folder-input');
+  const saveBtn = $('save-btn');
+  const copyBtn = $('copy-btn');
+  const warnNote = $('warn-note');
+  const outRow = $('out-row');
+  const outValue = $('out-value');
+  const setOutBtn = $('set-out-btn');
+  const clearOutBtn = $('clear-out-btn');
+
+  let currentData = null;
+  let outDirHandle = null;
+
+  const PERFORMANCE_EXT = '.ini';
+  const JS_FILENAME = 'perflist.js';
+  const IDB_NAME = 'dreamdexed-perfscan';
+  const IDB_STORE = 'handles';
+  const IDB_KEY = 'outDir';
+
+  // ---------- Logging ----------
+  function log(text, cls) {
+    const entry = document.createElement('div');
+    entry.className = 'entry' + (cls ? ' ' + cls : '');
+    entry.textContent = text;
+    logEl.appendChild(entry);
+    while (logEl.children.length > 500) logEl.removeChild(logEl.firstChild);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function showWarn(title, body) {
+    warnNote.innerHTML = '<strong>' + title + '</strong>' + body;
+    warnNote.classList.add('visible');
+  }
+  function hideWarn() {
+    warnNote.classList.remove('visible');
+    warnNote.innerHTML = '';
+  }
+
+  // ---------- Feature detection ----------
+  if (!('webkitdirectory' in document.createElement('input'))) {
+    showWarn('Unsupported browser',
+      'This browser cannot read folder contents. Use a current version of ' +
+      'Chrome, Edge, Firefox or Brave.');
+  }
+
+  const hasDirPicker = typeof window.showDirectoryPicker === 'function';
+
+  // ---------- IndexedDB (persist the output-folder handle) ----------
+  function openDb() {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(IDB_NAME, 1);
+      req.onupgradeneeded = () => {
+        if (!req.result.objectStoreNames.contains(IDB_STORE)) {
+          req.result.createObjectStore(IDB_STORE);
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+
+  async function idbSet(key, value) {
+    const db = await openDb();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      tx.objectStore(IDB_STORE).put(value, key);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  }
+
+  async function idbGet(key) {
+    const db = await openDb();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE, 'readonly');
+      const req = tx.objectStore(IDB_STORE).get(key);
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+
+  async function idbDel(key) {
+    const db = await openDb();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      tx.objectStore(IDB_STORE).delete(key);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  }
+
+  // ---------- Output folder UI ----------
+  function updateOutUI() {
+    if (!hasDirPicker) {
+      outRow.style.display = 'none';
+      return;
+    }
+    outRow.style.display = 'flex';
+
+    if (outDirHandle) {
+      outValue.textContent = outDirHandle.name + '/' + JS_FILENAME;
+      outValue.classList.add('set');
+      setOutBtn.textContent = 'Change';
+    } else {
+      outValue.textContent = '(not set – Save As dialog)';
+      outValue.classList.remove('set');
+      setOutBtn.textContent = 'Set folder';
+    }
+  }
+
+  async function loadSavedOutputFolder() {
+    if (!hasDirPicker) return;
+    try {
+      const handle = await idbGet(IDB_KEY);
+      if (handle && handle.kind === 'directory') {
+        outDirHandle = handle;
+        log('-- output folder remembered: ' + handle.name, 'hint');
+      }
+    } catch (e) {
+      log('-- could not read saved folder (IndexedDB): ' + e.message, 'hint');
+    }
+    updateOutUI();
+  }
+
+  async function chooseOutputFolder() {
+    if (!hasDirPicker) {
+      log('!! folder picker not supported in this browser', 'err');
+      return;
+    }
+    try {
+      const handle = await window.showDirectoryPicker({ mode: 'readwrite' });
+      const perm = await handle.queryPermission({ mode: 'readwrite' });
+      if (perm !== 'granted') {
+        const req = await handle.requestPermission({ mode: 'readwrite' });
+        if (req !== 'granted') {
+          log('!! permission denied for "' + handle.name + '"', 'err');
+          return;
+        }
+      }
+      outDirHandle = handle;
+      try {
+        await idbSet(IDB_KEY, handle);
+      } catch (e) {
+        log('-- folder set but not persisted: ' + e.message, 'hint');
+      }
+      updateOutUI();
+      log('>> output folder set: ' + handle.name, 'send');
+    } catch (e) {
+      if (e.name === 'AbortError') {
+        log('-- folder selection cancelled');
+        return;
+      }
+      log('!! could not set folder: ' + e.message, 'err');
+    }
+  }
+
+  async function clearOutputFolder() {
+    outDirHandle = null;
+    try { await idbDel(IDB_KEY); } catch (e) {}
+    updateOutUI();
+    log('-- output folder cleared');
+  }
+
+  // ---------- Filename helpers ----------
+  function isIniFile(name) {
+    if (typeof name !== 'string') return false;
+    const trimmed = name.trim();
+    return trimmed.length > 4 &&
+           trimmed.slice(-4).toLowerCase() === PERFORMANCE_EXT;
+  }
+
+  function parsePerformanceFilename(baseName, position) {
+    const base = baseName.trim().replace(/\.ini$/i, '').trim();
+
+    const m = base.match(/^(\d+)\s*[\-_\s]+\s*(.+)$/);
+    if (m) {
+      return { program: parseInt(m[1], 10), name: m[2].trim() };
+    }
+    if (/^\d+$/.test(base)) {
+      return { program: parseInt(base, 10), name: base };
+    }
+    return { program: position, name: base };
+  }
+
+  function parseBankFolder(folderName) {
+    const m = folderName.match(/^(\d+)(?:[\-_\s]+(.*))?$/);
+    if (!m) return null;
+    const bank = parseInt(m[1], 10);
+    let name = (m[2] || '').trim();
+    if (!name) name = String(bank).padStart(3, '0');
+    return { bank, name };
+  }
+
+  function formatPerformance(bank, program, name) {
+    const b = String(bank).padStart(3, '0');
+    const p = String(program).padStart(3, '0');
+    return b + ', ' + p + ', ' + name;
+  }
+
+  // ---------- Scan ----------
+  function scanFiles(fileList) {
+    hideWarn();
+
+    const total = fileList.length;
+    log('>> selected folder: ' + total + ' file(s)');
+
+    let iniCount = 0;
+    const bankInfoMap = new Map();
+    const bankFilesMap = new Map();
+    const samplePaths = [];
+
+    for (const file of fileList) {
+      const rel = file.webkitRelativePath || file.name;
+      if (samplePaths.length < 4) samplePaths.push(rel);
+
+      if (!isIniFile(file.name)) continue;
+      iniCount++;
+
+      const parts = rel.split('/').filter(p => p.length > 0);
+      if (parts.length < 2) continue;
+
+      const fileName = parts[parts.length - 1];
+      const parentFolder = parts[parts.length - 2];
+
+      const bank = parseBankFolder(parentFolder);
+      if (!bank) continue;
+
+      if (!bankInfoMap.has(bank.bank)) {
+        bankInfoMap.set(bank.bank, bank.name);
+      }
+
+      if (!bankFilesMap.has(bank.bank)) bankFilesMap.set(bank.bank, []);
+      bankFilesMap.get(bank.bank).push(fileName);
+    }
+
+    log('-- .ini files seen: ' + iniCount, 'hint');
+    log('-- distinct banks: ' + bankInfoMap.size, 'hint');
+
+    if (samplePaths.length > 0) {
+      log('-- sample paths:', 'hint');
+      for (const p of samplePaths) {
+        log('     ' + p, 'hint');
+      }
+    }
+
+    if (bankFilesMap.size === 0) {
+      log('!! no .ini files found in any bank folder', 'err');
+      showWarn('Nothing to scan',
+        'The selected folder contains no .ini files that sit inside ' +
+        'numeric bank subfolders.<br><br>' +
+        'Please select the SD card root, or the folder that contains the ' +
+        '<code>performance</code> folder.');
+      return;
+    }
+
+    const banks = Array.from(bankInfoMap.keys())
+      .sort((a, b) => a - b)
+      .map(num => ({ bank: num, name: bankInfoMap.get(num) }));
+
+    const performances = [];
+    const bankNums = Array.from(bankFilesMap.keys()).sort((a, b) => a - b);
+    for (const bankNum of bankNums) {
+      const files = bankFilesMap.get(bankNum);
+      files.sort((a, b) =>
+        a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+      );
+      files.forEach((fileName, idx) => {
+        const { program, name } = parsePerformanceFilename(fileName, idx + 1);
+        performances.push(formatPerformance(bankNum, program, name));
+      });
+
+      const label = String(bankNum).padStart(3, '0') +
+                    ' (' + bankInfoMap.get(bankNum) + ')';
+      log('-- bank ' + label + ': ' + files.length + ' programs', 'ok');
+    }
+
+    currentData = {
+      generated: new Date().toISOString(),
+      banks: banks,
+      performances: performances
+    };
+
+    finishScan();
+  }
+
+  function finishScan() {
+    const banks = currentData.banks;
+    const performances = currentData.performances;
+
+    statsEl.textContent = '>> ' + performances.length + ' performances in ' +
+      banks.length + ' bank' + (banks.length === 1 ? '' : 's');
+
+    renderPreview(banks, performances);
+
+    if (performances.length > 0) {
+      saveBtn.disabled = false;
+      copyBtn.disabled = false;
+      log('>> scan complete: ' + performances.length + ' entries', 'send');
+    } else {
+      saveBtn.disabled = true;
+      copyBtn.disabled = true;
+    }
+  }
+
+  function renderPreview(banks, performances) {
+    if (performances.length === 0) {
+      previewEl.classList.remove('visible');
+      previewEl.textContent = '';
+      return;
+    }
+
+    let html = '';
+    html += '<span class="section-title">"banks": [</span>\n';
+    banks.forEach((b, i) => {
+      const comma = i < banks.length - 1 ? ',' : '';
+      html += '  { "bank": ' + b.bank + ', "name": "' +
+              escapeHtml(b.name) + '" }' + comma + '\n';
+    });
+    html += '<span class="section-title">],</span>\n';
+    html += '<span class="section-title">"performances": [</span>\n';
+
+    const MAX = 40;
+    const shown = performances.slice(0, MAX);
+    shown.forEach((line, i) => {
+      const comma = i < performances.length - 1 ? ',' : '';
+      html += '  "' + escapeHtml(line) + '"' + comma + '\n';
+    });
+    if (performances.length > MAX) {
+      html += '  <span class="more">... and ' +
+              (performances.length - MAX) + ' more</span>\n';
+    }
+    html += '<span class="section-title">]</span>';
+
+    previewEl.innerHTML = html;
+    previewEl.classList.add('visible');
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // ---------- Save (writes only perflist.js) ----------
+  async function saveJson() {
+    if (!currentData) return;
+    const json = JSON.stringify(currentData, null, 2);
+
+    // The JS wrapper is what makes the Controller work on file://
+    const jsContent =
+      '// Auto-generated by perfscan.html – do not edit by hand.\n' +
+      '// Regenerate with perfscan.html whenever the SD-card contents change.\n' +
+      'window.DREAMDEXED_PERFLIST = ' + json + ';\n';
+
+    // Helper: ensure write permission on a directory handle
+    async function ensureWritePermission(dirHandle) {
+      let perm = await dirHandle.queryPermission({ mode: 'readwrite' });
+      if (perm !== 'granted') {
+        perm = await dirHandle.requestPermission({ mode: 'readwrite' });
+      }
+      if (perm !== 'granted') {
+        throw new Error('permission not granted');
+      }
+    }
+
+    // 1. Remembered output folder
+    if (outDirHandle) {
+      try {
+        await ensureWritePermission(outDirHandle);
+        const jsFile = await outDirHandle.getFileHandle(JS_FILENAME, { create: true });
+        const w = await jsFile.createWritable();
+        await w.write(jsContent);
+        await w.close();
+        log('>> saved ' + JS_FILENAME + ' to ' + outDirHandle.name, 'send');
+        return;
+      } catch (e) {
+        if (e.name === 'AbortError') {
+          log('-- save cancelled');
+          return;
+        }
+        log('!! write to saved folder failed: ' + e.message, 'err');
+        log('-- falling back to Save As dialog', 'hint');
+      }
+    }
+
+    // 2. Save As dialog
+    if (typeof window.showSaveFilePicker === 'function') {
+      try {
+        const handle = await window.showSaveFilePicker({
+          suggestedName: JS_FILENAME,
+          types: [{
+            description: 'JavaScript',
+            accept: { 'application/javascript': ['.js'] }
+          }]
+        });
+        const writable = await handle.createWritable();
+        await writable.write(jsContent);
+        await writable.close();
+        log('>> saved: ' + handle.name, 'send');
+        return;
+      } catch (e) {
+        if (e.name === 'AbortError') {
+          log('-- save cancelled');
+          return;
+        }
+        log('!! save failed for ' + JS_FILENAME + ': ' + e.message, 'err');
+      }
+    }
+
+    // 3. Download fallback
+    const blob = new Blob([jsContent], { type: 'application/javascript' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = JS_FILENAME;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    log('>> downloaded ' + JS_FILENAME, 'send');
+  }
+
+  // ---------- Copy data (raw JSON) to clipboard ----------
+  async function copyJson() {
+    if (!currentData) return;
+    const json = JSON.stringify(currentData, null, 2);
+    try {
+      await navigator.clipboard.writeText(json);
+      log('>> copied data to clipboard (' + json.length + ' bytes)', 'send');
+    } catch (e) {
+      log('!! clipboard failed: ' + e.message, 'err');
+    }
+  }
+
+  // ---------- Wiring ----------
+  folderInput.addEventListener('change', (e) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      scanFiles(files);
+    }
+    e.target.value = '';
+  });
+
+  saveBtn.addEventListener('click', saveJson);
+  copyBtn.addEventListener('click', copyJson);
+  setOutBtn.addEventListener('click', chooseOutputFolder);
+  clearOutBtn.addEventListener('click', clearOutputFolder);
+
+  // ---------- Init ----------
+  log('-- ready');
+  log('-- click "Select SD-Card folder" to begin');
+  log('-- nothing is uploaded; files are read locally', 'hint');
+  if (hasDirPicker) {
+    loadSavedOutputFolder();
+  } else {
+    log('-- folder picker not available (Firefox?) – Save uses dialog', 'hint');
+  }
+
+})();
+</script>
+</body>
+</html>
