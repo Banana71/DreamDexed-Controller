@@ -1076,7 +1076,7 @@
           that is four columns of 32 rows.
         </li>
         <li>
-          A <b>double-click</b> on a cell sends a Bank Select and a Program
+          A <b>click</b> on a cell sends a Bank Select and a Program
           Change on the current <b>Prog Ch</b> – the performance is loaded
           on the Pi right away.
         </li>
@@ -1222,7 +1222,7 @@
       <div class="selector-grid" id="selector-grid"></div>
     </div>
     <div class="selector-footer">
-      Double-click a cell to load the performance on the Pi
+      Click a cell to load the performance on the Pi
     </div>
   </div>
 </div>
@@ -1576,7 +1576,7 @@
         cell.classList.add('active');
       }
 
-      cell.addEventListener('dblclick', () => {
+      cell.addEventListener('click', () => {
         applyPerformance(p.bank, p.program, p.name);
         renderSelector();
       });
