@@ -23,7 +23,6 @@ The live Controller is hosted on GitHub Pages and works directly in the
 browser — no installation needed:  
 <https://banana71.github.io/DreamDexed-Controller/index.html>
 
-
 ---
 
 ## What this repository contains
@@ -32,6 +31,8 @@ browser — no installation needed:
 |---------------|---------|
 | `index.html` | The Controller — performance selection and MIDI forwarding |
 | `install.html` | Install Guide — setup, parts list, downloads, first steps |
+| `perfscan.html` | Helper — rebuilds `perflist.js` from the SD card |
+| `perflist.js` | Performance list loaded by Quick Select (`BBB, PPP, Name` lines) |
 | `Performance List.pdf` | Modified edition of the Soundplantage list (Bank 1 = favourites) |
 | `SD-Card/` | Ready-to-copy files for the Raspberry Pi's SD card (includes `minidexed.ini`) |
 | `doto-latin-900-normal.woff2` | Local font, used by both pages |
@@ -46,20 +47,41 @@ Program Change and Note messages to it, and forwards incoming MIDI data
 from a keyboard or DAW. Everything happens in the browser.
 
 - **MIDI Out** – the Pi itself. Used for Program Change, Bank Select, Volume
-  and the PGM / BANK navigation keys (default channel 10).
+  and the PGM / BANK navigation keys (default channel 10). Selecting the Pi
+  in the dropdown connects immediately; there is no separate Connect button.
 - **MIDI In** – your keyboard or DAW. Incoming notes are forwarded 1:1 to
   the Pi, on their original channel (typically 1). Active Sensing (`0xFE`)
-  is filtered out.
+  is filtered out. A small activity dot next to the dropdown blinks when
+  data arrives.
+- **Quick Select** – opens a browsable list of all performances, grouped by
+  bank. Performances are laid out column by column (program 1–32 in the
+  first column, and so on). A double-click sends Bank Select and Program
+  Change on the current Prog Ch and loads the performance on the Pi right
+  away. The list is read from `perflist.js`, which sits next to
+  `index.html`.
 - **PERFLIST.PDF** – opens the modified Performance List that ships with this
   repository. Bank 1 is a curated selection of favourites chosen for this
   project; Banks 2 and up are the original Soundplantage banks.
 - **MANUAL** – opens the in-app user manual (focused on operating the
-  Controller: typing bank/program numbers, using the Performance List,
-  keyboard shortcuts).
+  Controller: typing bank/program numbers, using Quick Select, keyboard
+  shortcuts).
 
 The two MIDI channels are kept separate on purpose: notes arrive on channel
 1, program changes go out on channel 10 (`PerformanceSelectChannel=10`). This
 avoids "ghost notes" — note messages being misinterpreted as program changes.
+
+### Rebuilding the performance list
+
+`perflist.js` is generated from the SD card. If you add, rename or remove
+`.ini` files under `performance/`, regenerate the list:
+
+1. Open `perfscan.html` in Chrome, Edge or Brave.
+2. Click **Select SD-Card folder** and choose the SD card (or the
+   `performance` folder inside it).
+3. Set the output folder to the directory that holds `index.html`, once.
+4. Click **Save perflist.js**.
+
+Nothing is uploaded — the file is written locally by the browser.
 
 ---
 
@@ -67,7 +89,7 @@ avoids "ghost notes" — note messages being misinterpreted as program changes.
 
 - Raspberry Pi 4 (1 GB is enough)
 - USB-C to USB-A cable
-- SD card, 8 GB or larger
+- SD card
 - PC or laptop running **Windows, macOS or Linux**
 - **A Chromium-based browser** (Chrome, Edge or Brave)
 - **MIDI keyboard or controller** connected to the PC via USB (must be able
@@ -103,16 +125,18 @@ operating system. These browsers provide full Web MIDI support out of the box.
 
 1. Download [`DreamDexed-Controller-main.zip`](https://github.com/Banana71/DreamDexed-Controller/archive/refs/heads/main.zip) (the whole project).
 2. Extract it. You get a folder `DreamDexed-Controller-main/` with the
-   Controller, the Install Guide, and a subfolder `SD-Card/` containing the
-   ready-to-copy SD-card files.
+   Controller, the Install Guide, `perflist.js`, `perfscan.html`, and a
+   subfolder `SD-Card/` containing the ready-to-copy SD-card files.
 3. Format an SD card as FAT32 and copy the **contents** of `SD-Card/` to the
    card's root (not the folder itself).
 4. Insert the SD card into the Pi and connect it to your PC via USB-C.
 5. Connect your **MIDI keyboard** to the PC and switch it on.
-6. Open `index.html` (or the hosted URL). Select the Pi under **MIDI OUT**
-   and press **CONNECT**. Then select your keyboard under **MIDI IN**.
+6. Open `index.html` (or the hosted URL). Select the Pi under **MIDI OUT** —
+   the connection is established immediately. Then select your keyboard
+   under **MIDI IN**.
 7. Enter a performance number (for example `2/87` for bank 2, program 87)
-   and press **ENTER** — then play a note on your keyboard.
+   and press **ENTER** — or click **Quick Select** and double-click a cell.
+   Then play a note on your keyboard.
 
 Full instructions, troubleshooting and next steps are on the install guide page.
 
