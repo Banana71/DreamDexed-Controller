@@ -2059,6 +2059,31 @@
     if (inp) localStorage.setItem('dreamdexed.inputId', id);
   });
 
+  // ---------- Auto-connect helper ----------
+  // Fires after every list refresh. Connects only when nothing is
+  // connected yet, and only when the dropdown target looks like our Pi
+  // or matches a remembered device. This way it can never hijack a
+  // manual choice.
+  function tryAutoConnect() {
+    if (!state.midiAccess) return;
+    if (state.output) return;
+    if (!deviceSelect.value) return;
+    if (!state.midiAccess.outputs.has(deviceSelect.value)) return;
+
+    const outputs = Array.from(state.midiAccess.outputs.values());
+    const out = state.midiAccess.outputs.get(deviceSelect.value);
+    const savedId = localStorage.getItem('dreamdexed.outputId');
+    const isPi = /dreamdexed|minidexed|gadget/i.test(out.name || '');
+    const isOnlyDevice = outputs.length === 1;
+
+    // Connect if it's the remembered device, looks like our Pi, or is
+    // the only thing there is. The last rule lets you use any single
+    // MIDI interface without having to click anything.
+    if (deviceSelect.value === savedId || isPi || isOnlyDevice) {
+      connectToSelected();
+    }
+  }
+
   // ---------- MIDI Out: selection immediately connects ----------
   function connectToSelected() {
     if (!state.midiAccess) return;
@@ -2127,16 +2152,16 @@
         } else {
           bindInput(null);
         }
+        tryAutoConnect();
       };
 
-      if (deviceSelect.value && access.outputs.has(deviceSelect.value)) {
-        const out = access.outputs.get(deviceSelect.value);
-        const savedId = localStorage.getItem('dreamdexed.outputId');
-        const isPi = /dreamdexed|minidexed|gadget/i.test(out.name || '');
-        if (deviceSelect.value === savedId || isPi) {
-          connectToSelected();
-        }
-      }
+      tryAutoConnect();
+
+      // Some browsers (notably on Windows) resolve requestMIDIAccess
+      // with an empty device list and fill it in a moment later.
+      // Give it a couple of retries so a single device is caught too.
+      setTimeout(tryAutoConnect, 400);
+      setTimeout(tryAutoConnect, 1200);
 
     } catch (e) {
       log('!! MIDI access denied or failed: ' + e.message, 'err');
