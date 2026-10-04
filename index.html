@@ -60,7 +60,7 @@
       0 0 0 1px #000,
       inset 0 1px 0 rgba(255,255,255,0.06),
       0 12px 40px rgba(0,0,0,0.8);
-    width: 760px;
+    width: 640px;          
     max-width: 100%;
   }
 
@@ -154,7 +154,7 @@
   }
 
   .lcd {
-    flex: 0 0 60%;
+    flex: 0 0 51%;         /* vorher: 48% */
     background: var(--lcd-bg);
     border: 2px solid #050a05;
     border-radius: 3px;
@@ -480,7 +480,7 @@
     flex-direction: column;
     flex: 1 1 auto;
     min-width: 0;
-    max-width: 1120px;
+    max-width: 900px;
     aspect-ratio: 297 / 210;
     max-height: calc(100vh - 48px);
     min-height: 400px;
@@ -695,7 +695,7 @@
     border: 3px solid var(--panel-edge);
     border-radius: 6px;
     box-shadow: 0 0 0 1px #000, 0 12px 40px rgba(0,0,0,0.9);
-    width: 720px;
+    width: 800px;
     max-width: 100%;
     max-height: 92vh;
     display: flex;
@@ -1927,7 +1927,7 @@
     state.volume = v;
     if (!fromSlider) volSlider.value = v;
     volValue.textContent = v;
-    if (setMasterVolume(v)) {
+    if (setMasterVolume(v, true)) {
       log('-- ' + (isMuted ? 'Volume = 0 (muted)' : 'Volume = ' + v));
     }
   }
@@ -2102,7 +2102,9 @@
     log('>> connected to ' + (out.name || out.id), 'send');
     localStorage.setItem('dreamdexed.outputId', id);
 
-    setMasterVolume(state.volume, true);
+    if (setMasterVolume(state.volume, true)) {
+      log('-- Volume = ' + state.volume);
+    }
 
     const inId = inputSelect.value;
     if (inId) {
